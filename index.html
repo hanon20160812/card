@@ -420,6 +420,79 @@
             outline: none;
             border-color: #e8d5c4;
         }
+        
+        /* Footer 樣式 */
+        .footer {
+            background: rgba(44, 40, 56, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid #c9a96e;
+            color: #f5f3f0;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 6xl;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #c9a96e;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.30);
+        }
+        
+        .footer-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+            margin: 1.5rem 0;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #e8d5c4;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #c9a96e;
+        }
+        
+        .footer-certification {
+            display: inline-block;
+            background: rgba(201, 169, 110, 0.2);
+            border: 1px solid #c9a96e;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body class="min-h-screen gradient-bg">
@@ -877,5 +950,69 @@
             }
         });
     </script>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 工作室資訊 -->
+                <div class="footer-section">
+                    <h3 class="footer-title">🔮 袖艷占卜工作室</h3>
+                    <p class="footer-text">
+                        <strong>Xiuyan Divination Studio</strong><br>
+                        專業靈性諮詢與占卜服務<br>
+                        致力於為您提供最準確的靈性指引<br>
+                        讓每個靈魂都能找到內在的智慧之光
+                    </p>
+                </div>
+                
+                <!-- 服務特色 -->
+                <div class="footer-section">
+                    <h3 class="footer-title">✨ 專業服務</h3>
+                    <p class="footer-text">
+                        • 個人運勢占卜<br>
+                        • 靈性諮詢指導<br>
+                        • 心靈療癒服務<br>
+                        • 直覺開發訓練<br>
+                        • 命理分析解讀
+                    </p>
+                    <div class="mt-4">
+                        <span class="footer-certification">🔮 專業認證</span>
+                        <span class="footer-certification">✨ 靈性導師</span>
+                        <span class="footer-certification">🌟 十年經驗</span>
+                    </div>
+                </div>
+                
+                <!-- 聯絡資訊 -->
+                <div class="footer-section">
+                    <h3 class="footer-title">📞 聯絡我們</h3>
+                    <p class="footer-text">
+                        <strong>Contact Information</strong><br>
+                        📧 Email: info@xiuyan-divination.com<br>
+                        📱 Line: @xiuyan-studio<br>
+                        🌐 Website: www.xiuyan-divination.com<br>
+                        ⏰ Service Hours: 24/7 Online
+                    </p>
+                    <div class="footer-links mt-4">
+                        <a href="#" class="footer-link">隱私政策</a>
+                        <a href="#" class="footer-link">服務條款</a>
+                        <a href="#" class="footer-link">常見問題</a>
+                        <a href="#" class="footer-link">客戶見證</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <p>
+                    © 2024 袖艷占卜工作室 (Xiuyan Divination Studio). All rights reserved.<br>
+                    <span class="text-sm opacity-70">
+                        Professional Spiritual Consultation & Divination Services | 專業靈性諮詢與占卜服務
+                    </span>
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
