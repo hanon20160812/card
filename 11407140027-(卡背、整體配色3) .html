@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>🔮 神秘占卜卡 - 靈性探索系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: url('BG.JPG') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(44, 40, 56, 0.85); /* 深夜藍半透明遮罩 */
+            z-index: 0;
+            pointer-events: none;
+        }
+        .logo-header {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo-header img {
+            width: 96px;
+            height: 96px;
+            border-radius: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.30);
+            background: #f5f3f0;
+            border: 2px solid #c9a96e;
+        }
+        .logo-title {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #f5f3f0;
+            letter-spacing: 0.1em;
+            background: rgba(201, 169, 110, 0.9);
+            border-radius: 8px;
+            padding: 4px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.30);
+            border: 1px solid #c9a96e;
+            z-index: 10;
+        }
+        
+        .card-flip {
+            perspective: 1000px;
+            width: 100%;
+            height: 420px;
+            max-width: 280px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .card-flip.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, 
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            top: 0;
+            left: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .card-front {
+            background: url('CardBG.jpg') no-repeat center center;
+            background-size: cover;
+            box-shadow: 0 8px 25px rgba(107, 91, 115, 0.50);
+            border: 2px solid #c9a96e;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #f5f3f0 0%, #e8d5c4 100%);
+            color: #2c2838;
+            transform: rotateY(180deg);
+            box-shadow: 0 8px 25px rgba(107, 91, 115, 0.50);
+            border: 2px solid #c9a96e;
+        }
+
+        .healing-text {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+            color: #2c2838;
+        }
+
+        .card-front h3,
+        .card-back h3 {
+            text-shadow: 0 2px 4px rgba(107, 91, 115, 0.30);
+            color: #2c2838;
+        }
+
+        .card-front p,
+        .card-back p {
+            text-shadow: 0 1px 3px rgba(107, 91, 115, 0.20);
+            color: #2c2838;
+        }
+
+        .card-flip:hover .card-inner {
+            transform: translateY(-4px);
+        }
+
+        .card-flip.flipped:hover .card-inner {
+            transform: translateY(-4px) rotateY(180deg);
+        }
+        
+        .card-flip:hover .card-front,
+        .card-flip:hover .card-back {
+            box-shadow: 0 25px 50px rgba(107, 91, 115, 0.60), 0 10px 25px rgba(107, 91, 115, 0.40);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2c2838 0%, #6b5b73 100%);
+        }
+        
+        .theme-warm { background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 50%, #f5f3f0 100%); }
+        .theme-cool { background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%); }
+        .theme-nature { background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 100%); }
+        .theme-sunset { background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%); }
+        .theme-ocean { background: linear-gradient(135deg, #2c2838 0%, #6b5b73 100%); }
+
+        /* 位置標籤樣式改進 */
+        .position-label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(245, 243, 240, 0.95);
+            color: #2c2838;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 20;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(107, 91, 115, 0.30);
+            border: 1px solid #c9a96e;
+        }
+
+        .card-back .position-label {
+            background: rgba(245, 243, 240, 0.90);
+            color: #2c2838;
+        }
+
+        /* 卡片內容區域 */
+        .card-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 圖標容器 */
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(107, 91, 115, 0.40);
+            filter: drop-shadow(0 2px 4px rgba(107, 91, 115, 0.30));
+        }
+
+        /* emoji 樣式 */
+        .emoji {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(107, 91, 115, 0.40);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.30));
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .card-flip {
+                height: 380px;
+                max-width: 260px;
+            }
+            
+            .icon-container {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+            }
+            
+            .emoji {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* 神秘紫金系按鈕 */
+        .btn-milktea {
+            background: linear-gradient(135deg, #c9a96e 0%, #e8d5c4 100%);
+            color: #2c2838;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #c9a96e;
+            box-shadow: 0 4px 12px rgba(107, 91, 115, 0.30);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+        .btn-milktea:hover {
+            background: linear-gradient(135deg, #e8d5c4 0%, #c9a96e 100%);
+            color: #2c2838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(107, 91, 115, 0.50);
+            border-color: #e8d5c4;
+        }
+
+        /* 主要文字顏色調整 */
+        .text-primary {
+            color: #ffffff !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.50);
+        }
+        
+        .text-secondary {
+            color: #c9a96e !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.30);
+        }
+        
+        /* 改善文字可讀性 */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+        }
+        
+        .healing-text {
+            color: #2c2838 !important;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+        }
+        
+        .drop-shadow {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.50));
+        }
+        
+        /* 控制面板樣式 */
+        .control-panel {
+            background: rgba(245, 243, 240, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #c9a96e;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
+        }
+        
+        /* 問題輸入區域樣式 */
+        .question-input-area {
+            background: rgba(245, 243, 240, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #c9a96e;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
+            margin-bottom: 1.5rem;
+        }
+        
+        .question-input-area label {
+            color: #2c2838;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+        
+        .question-input-area textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 1rem;
+            border: 2px solid #c9a96e;
+            border-radius: 12px;
+            background: rgba(245, 243, 240, 0.95);
+            color: #2c2838;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        
+        .question-input-area textarea:focus {
+            outline: none;
+            border-color: #e8d5c4;
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.30);
+            background: rgba(255, 255, 255, 0.98);
+        }
+        
+        .question-input-area textarea::placeholder {
+            color: #6b5b73;
+            opacity: 0.7;
+        }
+        
+        .control-panel label {
+            color: #2c2838;
+            font-weight: 600;
+        }
+        
+        .control-panel select {
+            background: rgba(245, 243, 240, 0.95);
+            color: #2c2838;
+            border: 2px solid #c9a96e;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .control-panel select:focus {
+            outline: none;
+            border-color: #e8d5c4;
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.30);
+        }
+        
+        /* 卡片展示區域 */
+        .cards-section {
+            background: rgba(245, 243, 240, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #c9a96e;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
+        }
+        
+        .cards-section h2 {
+            color: #2c2838;
+        }
+        
+        .cards-section h3 {
+            color: #2c2838;
+        }
+        
+        .cards-section p {
+            color: #2c2838;
+        }
+        
+        /* 解讀指引區域 */
+        .reading-guide {
+            background: rgba(201, 169, 110, 0.80);
+            border: 1px solid #c9a96e;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .reading-guide h3 {
+            color: #2c2838;
+        }
+        
+        .reading-guide p,
+        .reading-guide div {
+            color: #2c2838;
+        }
+        
+        /* 模態框樣式 */
+        .modal-content {
+            background: #f5f3f0;
+            border: 2px solid #c9a96e;
+            color: #2c2838;
+        }
+        
+        /* 移除所有不必要的白框 */
+        * {
+            box-sizing: border-box;
+        }
+        
+        button {
+            border: none;
+            outline: none;
+        }
+        
+        button:focus {
+            outline: none;
+        }
+        
+        .btn-milktea {
+            border: 2px solid #c9a96e;
+        }
+        
+        .btn-milktea:focus {
+            outline: none;
+            border-color: #e8d5c4;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <div class="bg-overlay"></div>
+            <div class="logo-header">
+        <img src="LOGO.jpg" alt="LOGO">
+    </div>
+    <div class="logo-title">🔮 袖艷占卜工作室</div>
+    <div class="container mx-auto px-4 py-8">
+        <!-- 標題區域 -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-primary mb-4 drop-shadow">🔮我思字卡 </h1>
+            <p class="text-xl text-primary mb-8 ">靈性探索系統 - 80組深度自我覺醒</p>
+            <!-- 主題切換按鈕已移除 -->
+        </div>
+
+        <!-- 問題輸入區域 -->
+        <div class="max-w-4xl mx-auto mb-6">
+            <div class="question-input-area p-6">
+                <label for="questionInput">💭 簡單敘述想問的問題或煩惱</label>
+                <textarea 
+                    id="questionInput" 
+                    placeholder="請描述您目前遇到的問題、困擾或想要探索的議題...例如：工作壓力、感情關係、人生方向等"
+                    rows="3"
+                ></textarea>
+            </div>
+        </div>
+
+        <!-- 控制面板 -->
+        <div class="max-w-4xl mx-auto mb-8">
+            <div class="control-panel p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <!-- 抽卡模式選擇 -->
+                    <div>
+                        <label class="block font-medium mb-2">🔮 占卜模式</label>
+                        <select id="drawModeSelect" class="w-full px-4 py-2 rounded-lg font-medium">
+                            <option value="single">單張預言 🎴</option>
+                            <option value="three">三張命運 🎴🎴🎴</option>
+                            <option value="five">五向靈視 🎴🎴🎴🎴🎴</option>
+                        </select>
+                    </div>
+                    
+                    <!-- 抽卡控制 -->
+                    <div>
+                        <label class="block font-medium mb-2">✨ 靈性操作</label>
+                        <div class="space-y-2">
+                            <button onclick="drawCards()" class="btn-milktea w-full">🔮 開始占卜</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽取的卡片展示區域 -->
+        <div id="drawnCardsSection" class="max-w-6xl mx-auto mb-8 hidden">
+            <div class="cards-section p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">✨ 你的預言</h2>
+                    <div class="space-x-2">
+                        <button onclick="flipAllCards()" class="btn-milktea">🔮 揭示預言</button>
+                        <button onclick="resetDraw()" class="btn-milktea">🔄 重新占卜</button>
+                    </div>
+                </div>
+                
+                <!-- 卡片解讀指引 -->
+                <div id="readingGuide" class="reading-guide p-4 mb-6">
+                    <h3 class="font-medium mb-2">🔮 靈性解讀指引</h3>
+                    <p id="guideText" class="text-sm"></p>
+                </div>
+                
+                <!-- 抽取的卡片容器 -->
+                <div id="drawnCardsContainer" class="grid gap-6">
+                    <!-- 抽取的卡片將顯示在這裡 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 單張卡片模態框 -->
+        <div id="cardModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50" onclick="closeModal()">
+            <div class="modal-content rounded-2xl p-8 max-w-md mx-4 relative" onclick="event.stopPropagation()">
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 卡片資料庫
+        const cardDatabase = [
+            // 困境覺察類（20組）
+            { id: 1, category: 'awareness', difficulty: 'beginner', front: '迷霧中的禮物', back: '當你看不清前路時，停下來問問自己：這片迷霧想讓我看見什麼？也許答案就在你願意停下來的那一刻。', emoji: '🌫️' },
+            { id: 2, category: 'awareness', difficulty: 'intermediate', front: '重新認識不確定', back: '也許你一直在逃避不確定，但它正是生命邀請你學習信任的課堂。你準備好重新認識它了嗎？', emoji: '❓' },
+            { id: 3, category: 'awareness', difficulty: 'intermediate', front: '困境中的選擇', back: '迷霧中的你，是選擇恐慌地亂闖，還是靜下來感受內心的指引？每個選擇都在塑造更完整的你。', emoji: '🔀' },
+            { id: 4, category: 'awareness', difficulty: 'beginner', front: '迷失的智慧', back: '每次迷失，都是生命給你重新認識自己的機會。承認迷失，接受不知道，就是成長的開始。', emoji: '🧭' },
+            { id: 5, category: 'awareness', difficulty: 'advanced', front: '安然前行', back: '當你學會在迷霧中安然前行，不再急於找尋出口，你就成為了更完整、更有智慧的自己。', emoji: '🚶‍♀️' },
+            { id: 6, category: 'awareness', difficulty: 'intermediate', front: '放下的勇氣', back: '你正站在新舊之間的門檻上，害怕放下熟悉的自己嗎？也許放下，正是為了迎接更真實的你。', emoji: '🕊️' },
+            { id: 7, category: 'awareness', difficulty: 'intermediate', front: '混沌中的智慧', back: '轉變期的混亂讓你不安，但問問自己：這份不安想教會我什麼？混沌往往孕育著最大的可能性。', emoji: '🌀' },
+            { id: 8, category: 'awareness', difficulty: 'intermediate', front: '選擇的時刻', back: '面對轉變，你是選擇抗拒回到舊模式，還是勇敢擁抱未知？每個選擇都在重新定義你是誰。', emoji: '⚖️' },
+            { id: 9, category: 'awareness', difficulty: 'advanced', front: '蛻變的過程', back: '就像蝴蝶破蛹而出，你也在經歷必要的蛻變。承認這個過程的艱難，同時相信即將到來的美麗。', emoji: '🦋' },
+            { id: 10, category: 'awareness', difficulty: 'advanced', front: '重新誕生', back: '當你願意讓舊的自己在某種意義上死去，新的你就能重新誕生。你準備好迎接這個新的自己了嗎？', emoji: '🌅' },
+            { id: 11, category: 'awareness', difficulty: 'beginner', front: '挑戰的意義', back: '當你遇到困難時，問問自己：這個挑戰想教給我什麼？每個障礙都是旅程中重要的學習章節。', emoji: '⛰️' },
+            { id: 12, category: 'awareness', difficulty: 'intermediate', front: '迷路的智慧', back: '那些看似走偏的路，往往帶你走向更真實的自己。有時候迷路，正是為了讓你找到真正的方向。', emoji: '🛤️' },
+            { id: 13, category: 'awareness', difficulty: 'intermediate', front: '重新定義目的地', back: '你一直急著到達終點，卻忽略了路上的風景嗎？問問自己：旅程本身是否就是你要尋找的目的地？', emoji: '🎯' },
+            { id: 14, category: 'awareness', difficulty: 'advanced', front: '勇敢的放下', back: '當舊的模式不再服務你時，你是緊抓不放，還是勇敢地讓它死去？有時放手，正是為了讓新生命誕生。', emoji: '🤲' },
+            { id: 15, category: 'awareness', difficulty: 'advanced', front: '結束的智慧', back: '每個結束都是新開始的種子。問問自己：這個看似痛苦的結束，正在為什麼樣的新生命創造空間？', emoji: '🌱' },
+            { id: 16, category: 'awareness', difficulty: 'beginner', front: '允許自己開始', back: '你是否一直等待完美的時機？問問自己：我為什麼不允許自己從這裡開始？即使準備不足，也可以踏出第一步。', emoji: '🚀' },
+            { id: 17, category: 'awareness', difficulty: 'intermediate', front: '不開始的代價', back: '當你害怕踏出第一步時，問問自己：如果我不開始，會錯過什麼？有時候不行動的風險，比行動更大。', emoji: '⏰' },
+            { id: 18, category: 'awareness', difficulty: 'intermediate', front: '不能再假裝', back: '那道突然閃過的光，讓你瞬間想起了什麼？問問自己：我還能繼續假裝沒看見、沒感覺到嗎？', emoji: '💡' },
+            { id: 19, category: 'awareness', difficulty: 'advanced', front: '已經準備好', back: '當某個瞬間震動了你的心，那代表你內心其實早已準備好。問問自己：我在等待什麼樣的允許？', emoji: '✨' },
+            { id: 20, category: 'awareness', difficulty: 'advanced', front: '是時候了', back: '當你感到「不能再回頭」的時刻，那就是命運在推你一把。你準備好承認：是時候了嗎？', emoji: '⏳' },
+
+            // 關係映照類（15組）
+            { id: 21, category: 'relationships', difficulty: 'beginner', front: '情緒的反照', back: '當你對某人產生強烈反應時，停下來問問自己：我在他身上看見了什麼？也許答案就在你心裡。', emoji: '🪞' },
+            { id: 22, category: 'relationships', difficulty: 'intermediate', front: '關係中的映照', back: '你最在意的那個人的缺點，是否也存在於你身上？承認這個可能性，就是自我認識的開始。', emoji: '👥' },
+            { id: 23, category: 'relationships', difficulty: 'intermediate', front: '收回投射的勇氣', back: '與其一直指責他人，不如問問自己：我把什麼投射在他身上了？收回投射，就是收回自己的力量。', emoji: '🎭' },
+            { id: 24, category: 'relationships', difficulty: 'advanced', front: '陰影的禮物', back: '你最討厭的特質，往往是你最不願面對的自己。勇敢地看見它，就是整合陰影的第一步。', emoji: '🌑' },
+            { id: 25, category: 'relationships', difficulty: 'advanced', front: '真實的映照', back: '當你不再需要他人來證明自己時，你就能真正看見他們。這時的關係，才是最真實的映照。', emoji: '💎' },
+            { id: 26, category: 'relationships', difficulty: 'beginner', front: '內在的提醒', back: '當某個人讓你反應很大時，問問自己：這會不會是我內在的某一部分，也在提醒我自己？', emoji: '🔔' },
+            { id: 27, category: 'relationships', difficulty: 'intermediate', front: '批判中的自我發現', back: '你最批判他人的特質，往往就是你最不願面對的自己。問問自己：我在批判什麼？答案可能令你驚訝。', emoji: '🔍' },
+            { id: 28, category: 'relationships', difficulty: 'intermediate', front: '被觸動的真相', back: '每一次被觸動，都是靈魂想要整合的信號。問問自己：這個情緒反應，想帶我看見哪個被遺忘的部分？', emoji: '💫' },
+            { id: 29, category: 'relationships', difficulty: 'advanced', front: '多版本的自己', back: '你不是只有一個樣子的人。快樂的、害怕的、強硬的、溫柔的，都是你。你願意承認自己有那麼多面向嗎？', emoji: '🎨' },
+            { id: 30, category: 'relationships', difficulty: 'advanced', front: '在他人中找自己', back: '每一次相遇都是靈魂的鏡子。與其評判他人，不如問問自己：這面鏡子想告訴我關於自己的什麼線索？', emoji: '🔮' },
+            { id: 31, category: 'relationships', difficulty: 'intermediate', front: '面對隱藏的自己', back: '那些你最不想承認的特質，正是你最需要面對的自己。逃避讓陰影更強大，接納卻能釋放被困的力量。', emoji: '🗝️' },
+            { id: 32, category: 'relationships', difficulty: 'advanced', front: '陰影中的寶藏', back: '越害怕的陰影，越可能藏著珍貴的寶藏。那些被你壓抑的特質，或許正是你最需要的力量。', emoji: '💰' },
+            { id: 33, category: 'relationships', difficulty: 'advanced', front: '整合的勇氣', back: '與其繼續裝作完美，不如勇敢地擁抱不完美的自己。真正的力量來自於接納全部的你。', emoji: '🤗' },
+            { id: 34, category: 'relationships', difficulty: 'advanced', front: '完整的自我', back: '當你不再需要隱藏任何部分的自己時，你就體驗到了真正的完整。這就是陰影整合的恩典。', emoji: '🌟' },
+            { id: 35, category: 'relationships', difficulty: 'intermediate', front: '受傷的智慧', back: '你的傷痛經驗是否讓你對他人的痛苦有更深的理解？問問自己：我的傷痛如何成為療癒他人的力量？', emoji: '💝' },
+
+            // 自我發現類（15組）
+            { id: 36, category: 'self-discovery', difficulty: 'beginner', front: '發現真正的禮物', back: '你總是羨慕別人的才能，卻忽略了自己的天賦嗎？停下來問問自己：什麼讓我感到最有活力和真實？', emoji: '🎁' },
+            { id: 37, category: 'self-discovery', difficulty: 'beginner', front: '平凡中的不凡', back: '真正的天賦常在日常小事中顯現，而非驚天動地的特殊能力。仔細觀察，你獨特的表達方式是什麼？', emoji: '✨' },
+            { id: 38, category: 'self-discovery', difficulty: 'intermediate', front: '獨特性的價值', back: '你不必成為另一個人才有價值，就像樹不必長成另一棵樹的模樣。你的獨特性本身就是珍貴的禮物。', emoji: '🌳' },
+            { id: 39, category: 'self-discovery', difficulty: 'intermediate', front: '天賦與貢獻', back: '問問自己：如何將你的天賦用於服務他人？當個人才能與社會貢獻結合時，你就找到了生命的意義。', emoji: '🌍' },
+            { id: 40, category: 'self-discovery', difficulty: 'advanced', front: '活出真實的自己', back: '當你不再模仿他人，開始活出真實的自己時，你的天賦就自然展現。這是你給世界最珍貴的禮物。', emoji: '🦄' },
+            { id: 41, category: 'self-discovery', difficulty: 'intermediate', front: '旅者的智慧', back: '你既是旅者，也是旅途。你走過的每一步，都在塑造更完整的自己。珍惜這個成為的過程。', emoji: '🗺️' },
+            { id: 42, category: 'self-discovery', difficulty: 'advanced', front: '當下的抵達', back: '停下腳步問問自己：如果旅程本身就是目的地，那麼此刻的我，是否已經抵達了某個美好的地方？', emoji: '🏡' },
+            { id: 43, category: 'self-discovery', difficulty: 'intermediate', front: '包容內在矛盾', back: '你是否總為內在的矛盾而困擾？問問自己：如何創造足夠大的容器，讓所有部分都找到自己的位置？', emoji: '🫙' },
+            { id: 44, category: 'self-discovery', difficulty: 'advanced', front: '和諧的多樣性', back: '真正的整合不是消除差異，而是讓不同面向和平共處。你的勇敢與恐懼，都是完整自我的一部分。', emoji: '🌈' },
+            { id: 45, category: 'self-discovery', difficulty: 'intermediate', front: '內在對話的智慧', back: '當內在聲音產生衝突時，不要急著選邊站。問問它們：你們想要什麼？如何找到雙贏的解決方案？', emoji: '💭' },
+            { id: 46, category: 'self-discovery', difficulty: 'advanced', front: '生態系統的啟示', back: '就像森林中每個生物都有其角色，你的每個面向也都有存在的價值。整合是協調，而非排除。', emoji: '🌲' },
+            { id: 47, category: 'self-discovery', difficulty: 'advanced', front: '完整的自己', back: '當你不再被內在矛盾分裂，而是體驗到統一的多樣性時，你就發現了真正的力量與平靜。', emoji: '🕉️' },
+            { id: 48, category: 'self-discovery', difficulty: 'intermediate', front: '超越非此即彼', back: '你是否總是陷入非黑即白的思維？問問自己：在這個對立中，是否存在著第三條道路？', emoji: '🌓' },
+            { id: 49, category: 'self-discovery', difficulty: 'advanced', front: '對立面的智慧', back: '當你想要擺脫脆弱時，問問自己：這份脆弱中是否藏著特殊的力量？對立面往往相互滋養。', emoji: '☯️' },
+            { id: 50, category: 'self-discovery', difficulty: 'advanced', front: '陰陽的舞蹈', back: '真正的完整不是消除所有負面，而是讓光明與黑暗在你內在和諧共舞。你準備好擁抱全部的自己嗎？', emoji: '💃' },
+
+            // 生活實踐類 (51-65)
+            { id: 51, category: 'practice', difficulty: 'beginner', front: '心底的聲音', back: '在夜深人靜時，什麼願望會在你心中小小地跳動？那個你自己都差點忘了的深層渴望是什麼？', emoji: '💫' },
+            { id: 52, category: 'practice', difficulty: 'beginner', front: '不敢說出口的真心', back: '你最近想要卻沒說出口的是什麼？問問自己：這個願望背後，我真正渴望的是什麼樣的生活？', emoji: '💭' },
+            { id: 53, category: 'practice', difficulty: 'intermediate', front: '對宇宙的邀請', back: '願望不是要求，而是向宇宙發出的邀請。當你真誠地說出你的願望時，你同時也在召喚生命的可能性。', emoji: '🌌' },
+            { id: 54, category: 'practice', difficulty: 'intermediate', front: '脆弱的勇氣', back: '說出願望需要勇氣，因為它讓我們變得脆弱。但問問自己：如果我不說出來，它會永遠只是遺憾嗎？', emoji: '💝' },
+            { id: 55, category: 'practice', difficulty: 'beginner', front: '停下的勇氣', back: '你是否一直在走，害怕停下會感受到內心的混亂？問問自己：我敢承認自己累了，也需要被照顧嗎？', emoji: '🛑' },
+            { id: 56, category: 'practice', difficulty: 'intermediate', front: '真正的對齊', back: '有時候停下，才是真正的對齊。當外在的節奏與內在不同步時，你願意選擇跟隨自己的節奏嗎？', emoji: '🎯' },
+            { id: 57, category: 'practice', difficulty: 'intermediate', front: '空白的力量', back: '在什麼都不做的空白中，往往會浮現最真實的聲音。你願意給自己一段無需回應的安靜時間嗎？', emoji: '⚪' },
+            { id: 58, category: 'practice', difficulty: 'advanced', front: '內在的懷抱', back: '就像躲進大樹的懷抱，你的內在也有一個安全的空間。當你感到疲憊時，你知道如何回到那裡嗎？', emoji: '🌳' },
+            { id: 59, category: 'practice', difficulty: 'advanced', front: '重新定義進步', back: '進步不一定是往前走，有時是學會停下來照顧自己。暫停不是弱點，而是深深的自我關愛。', emoji: '🔄' },
+            { id: 60, category: 'practice', difficulty: 'intermediate', front: '在混亂中重生', back: '當你覺得自己像是壞掉了，說話卡住，不想走路時，問問自己：我是不是正在蛻變中？', emoji: '🦋' },
+            { id: 61, category: 'practice', difficulty: 'advanced', front: '允許瓦解', back: '真正的轉化需要先瓦解舊的自己。你願意允許那些不再適合的部分慢慢溶解嗎？這不是失去，而是重生。', emoji: '🌊' },
+            { id: 62, category: 'practice', difficulty: 'advanced', front: '不再偽裝的勇氣', back: '也許轉化不是變得更強，而是允許自己不再偽裝。問問自己：我還在努力成為誰期待的樣子嗎？', emoji: '🎭' },
+            { id: 63, category: 'practice', difficulty: 'advanced', front: '擁抱尚未完成', back: '你不需要急著變好，只需要在破碎中讓光發芽。問問自己：我能否擁抱所有尚未完成的我？', emoji: '🌱' },
+            { id: 64, category: 'practice', difficulty: 'advanced', front: '新的本質', back: '當你發現自己不是原來的那個你了，這不是迷失，而是找到了更真實的自己。你準備好迎接新的本質嗎？', emoji: '✨' },
+            { id: 65, category: 'practice', difficulty: 'intermediate', front: '空下來的真實', back: '當你什麼都不做時，是否擔心自己變得不重要？問問自己：空下來的我，是否反而更真實了？', emoji: '🕊️' },
+            
+            // 存在確認類 (66-80)
+            { id: 66, category: 'existence', difficulty: 'beginner', front: '不再縮小自己', back: '你是否總是試著變得像誰、說得更乖，好讓別人喜歡？問問自己：我準備好停止縮小自己了嗎？', emoji: '🌟' },
+            { id: 67, category: 'existence', difficulty: 'intermediate', front: '夠了的存在', back: '當你不再追問「我該怎麼變好」，而是問「我是誰」時，會聽到什麼聲音？也許答案就是：我就是我，就夠了。', emoji: '💎' },
+            { id: 68, category: 'existence', difficulty: 'intermediate', front: '站在自己的形狀裡', back: '你可以不用再成為誰了，只要做你，就是很夠了。問問自己：我敢站在自己真實的形狀裡嗎？', emoji: '🏛️' },
+            { id: 69, category: 'existence', difficulty: 'advanced', front: '身份的回歸', back: '經過所有的疑惑與蛻變，你準備好與靈魂的名字重新對上號了嗎？那個最初、最本質的光，就是你。', emoji: '🔮' },
+            { id: 70, category: 'existence', difficulty: 'advanced', front: '存在的宣言', back: '我是，我在，我值得如此存在。當你能穩定地說出這句話時，你就回到了真我的核心力量。', emoji: '👑' },
+            { id: 71, category: 'existence', difficulty: 'intermediate', front: '不再逃離', back: '你是否一直在逃，逃離某個不夠好的自己？問問自己：我準備好不再逃離，允許自己就是這樣了嗎？', emoji: '🏠' },
+            { id: 72, category: 'existence', difficulty: 'advanced', front: '與自己和解', back: '家不是一個地點，而是與自己和解的狀態。當你不再責怪曾經的自己時，你就找到回家的路了。', emoji: '🤝' },
+            { id: 73, category: 'existence', difficulty: 'advanced', front: '接回每個部分', back: '那些曾被你排斥、否定、逃避的部分，都在等你說：「謝謝你，我回來了。」你準備好接它們回家嗎？', emoji: '🫂' },
+            { id: 74, category: 'existence', difficulty: 'advanced', front: '歸屬於自己', back: '最深的歸屬不是被別人接納，而是允許自己成為自己。當你找到這種歸屬感時，你就回到家了。', emoji: '🌍' },
+            { id: 75, category: 'existence', difficulty: 'advanced', front: '一直都在', back: '你沒有找到家，而是發現家一直在你身體裡。當你停止尋找外在的家時，內在的家就為你點亮了燈。', emoji: '🏡' },
+            { id: 76, category: 'existence', difficulty: 'intermediate', front: '內在的召喚', back: '當你聽見心裡安靜地說「這就是我想為世界留下的痕跡」時，那就是你的靈魂在召喚你。你聽見了嗎？', emoji: '📞' },
+            { id: 77, category: 'existence', difficulty: 'intermediate', front: '不是責任而是渴望', back: '這不是你應該做的事，而是你靈魂渴望實現的事。問問自己：什麼讓我的內在燃燒起願意的火焰？', emoji: '🔥' },
+            { id: 78, category: 'existence', difficulty: 'advanced', front: '從熱情中發現', back: '你的靈魂任務常常藏在你的熱情、傷痛、天賦與渴望中。回顧你最深的痛與喜，它們想告訴你什麼？', emoji: '🗝️' },
+            { id: 79, category: 'existence', difficulty: 'advanced', front: '超越自己的願望', back: '你準備好不再只是為了自己而生活了嗎？當你的光找到方向時，你就踏上了靈魂任務的道路。', emoji: '🌅' },
+            { id: 80, category: 'existence', difficulty: 'advanced', front: '說願意的時刻', back: '也許你的靈魂聲音很小，但它一直都在。當你聽見它在說「你準備好了」時，你敢回答「我願意」嗎？', emoji: '💍' }
+        ];
+
+        let currentTheme = 'ocean';
+        let drawnCards = [];
+        let allFlipped = false;
+
+        // 獲取類別名稱
+        function getCategoryName(category) {
+            const categoryLabels = {
+                'awareness': '困境覺察',
+                'relationships': '關係映照',
+                'self-discovery': '自我發現',
+                'practice': '生活實踐',
+                'existence': '存在確認'
+            };
+            return categoryLabels[category] || category;
+        }
+
+        // 抽取卡片
+        function drawCards() {
+            const drawMode = document.getElementById('drawModeSelect').value;
+            const questionInput = document.getElementById('questionInput').value.trim();
+            let numberOfCards;
+            
+            switch(drawMode) {
+                case 'single':
+                    numberOfCards = 1;
+                    break;
+                case 'three':
+                    numberOfCards = 3;
+                    break;
+                case 'five':
+                    numberOfCards = 5;
+                    break;
+                default:
+                    numberOfCards = 1;
+            }
+            
+            // 隨機選取卡片
+            const shuffled = [...cardDatabase].sort(() => 0.5 - Math.random());
+            drawnCards = shuffled.slice(0, numberOfCards);
+            allFlipped = false;
+            
+            // 顯示抽取的卡片
+            displayDrawnCards();
+            showReadingGuide(drawMode, questionInput);
+            
+            // 顯示抽卡區域
+            document.getElementById('drawnCardsSection').classList.remove('hidden');
+            
+            // 平滑滾動到卡片區域
+            setTimeout(() => {
+                document.getElementById('drawnCardsSection').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
+
+        // 顯示抽取的卡片
+        function displayDrawnCards() {
+            const container = document.getElementById('drawnCardsContainer');
+            const drawMode = document.getElementById('drawModeSelect').value;
+            
+            // 設定網格佈局
+            let gridClass = '';
+            if (drawMode === 'single') {
+                gridClass = 'grid-cols-1 justify-items-center max-w-sm mx-auto';
+            } else if (drawMode === 'three') {
+                gridClass = 'grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto';
+            } else if (drawMode === 'five') {
+                gridClass = 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 max-w-7xl mx-auto';
+            }
+            
+            container.className = `grid gap-8 ${gridClass}`;
+            container.innerHTML = '';
+            
+            drawnCards.forEach((card, index) => {
+                const cardElement = createDrawnCardElement(card, index);
+                container.appendChild(cardElement);
+            });
+        }
+
+        // 創建抽取卡片元素
+        function createDrawnCardElement(card, index) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'card-flip cursor-pointer';
+            cardDiv.id = `drawn-card-${index}`;
+            cardDiv.onclick = () => flipCard(cardDiv);
+            
+            const difficultyLabels = {
+                'beginner': '初探 🌱',
+                'intermediate': '深入 🌿',
+                'advanced': '深層 🌳'
+            };
+
+            // 五向展開的位置標籤
+            const fiveCardPositions = ['A：靈性觸發', 'B：內在智慧', 'C：命運結果', '整合新視野', '靈性行動'];
+            const threeCardPositions = ['過去/靈魂根源', '現在/靈性核心', '未來/神聖指引'];
+            
+            let positionLabel = '';
+            const drawMode = document.getElementById('drawModeSelect').value;
+            if (drawMode === 'five' && index < 5) {
+                positionLabel = `<div class="position-label">${fiveCardPositions[index]}</div>`;
+            } else if (drawMode === 'three' && index < 3) {
+                positionLabel = `<div class="position-label">${threeCardPositions[index]}</div>`;
+            }
+
+            cardDiv.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        
+                        <div class="card-content">
+<br><br><br><br><br>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">療癒字卡</h3>
+                            <p class="text-sm text-gray-600 mb-4">點擊翻轉查看訊息</p>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        ${positionLabel}
+                        <div class="card-content">
+                            <div class="emoji">${card.emoji}</div>
+                            <h3 class="text-lg font-bold mb-4 text-center healing-text">${card.front}</h3>
+                            <p class="text-sm leading-relaxed text-center healing-text mb-4 flex-1">${card.back}</p>
+                            <div class="mt-auto text-center">
+                                <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-xs">
+                                    ${getCategoryName(card.category)} · No.${card.id}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return cardDiv;
+        }
+
+        // 顯示解讀指引
+        function showReadingGuide(drawMode, questionInput) {
+            const guideContainer = document.getElementById('readingGuide');
+            let guideHTML = '';
+            
+            // 如果有輸入問題，顯示問題摘要
+            let questionSummary = '';
+            if (questionInput) {
+                questionSummary = `
+                    <div class="mb-4 p-3 bg-white/20 rounded-lg border border-white/30">
+                        <h4 class="font-medium text-sm mb-1">💭 您的問題：</h4>
+                        <p class="text-sm italic">"${questionInput}"</p>
+                    </div>
+                `;
+            }
+            
+            switch(drawMode) {
+                case 'single':
+                    guideHTML = `
+                        ${questionSummary}
+                        <h3 class="font-medium mb-2">🔮 單張預言解讀指引</h3>
+                        <p class="text-sm mb-2">這張卡片是宇宙此刻賜予你的神聖訊息。靜下心來，感受靈性想要傳達給你的智慧。</p>
+                        <p class="text-sm">問問自己：這個預言如何與我當前的靈性旅程產生共鳴？</p>
+                    `;
+                    break;
+                case 'three':
+                    guideHTML = `
+                        ${questionSummary}
+                        <h3 class="font-medium mb-3">🔮 三張命運解讀指引</h3>
+                        <div class="space-y-2 text-sm">
+                            <div><strong>左卡（過去/靈魂根源）：</strong>影響當前靈性狀況的過去經驗或靈魂模式</div>
+                            <div><strong>中卡（現在/靈性核心）：</strong>當前最需要關注的靈性核心議題</div>
+                            <div><strong>右卡（未來/神聖指引）：</strong>靈性前進方向的建議或即將展現的神聖可能性</div>
+                            <p class="mt-4 text-sm opacity-90">觀察三張卡片之間的靈性關聯性，它們共同訴說著你靈魂故事的一個神聖章節。</p>
+                        </div>
+                    `;
+                    break;
+                case 'five':
+                    guideHTML = `
+                        ${questionSummary}
+                        <h3 class="font-medium mb-3">🔮 靈性ABC五向展開解讀</h3>
+                        <div class="space-y-2 text-sm">
+                            <div><strong>第一張（A：靈性觸發）：</strong>近期觸動你靈性的事件或外在刺激。</div>
+                            <div><strong>第二張（B：內在智慧）：</strong>你對事件的靈性詮釋與深層智慧。</div>
+                            <div><strong>第三張（C：命運結果）：</strong>由靈性智慧產生的情緒、行為或內在結果。</div>
+                            <div><strong>第四張（整合新視野）：</strong>如果你願意開啟新的靈性視野，你會怎麼重新看待它？</div>
+                            <div><strong>第五張（靈性行動）：</strong>基於新的靈性理解，能採取的下一個神聖行動。</div>
+                            <p class="mt-4 text-sm opacity-90">這個展開方式協助你用一套靈性路徑，從事件經驗走向靈性轉化與前行。</p>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            guideContainer.innerHTML = guideHTML;
+        }
+
+        // 翻轉單張卡片
+        function flipCard(cardElement) {
+            cardElement.classList.toggle('flipped');
+        }
+
+        // 翻轉所有卡片
+        function flipAllCards() {
+            drawnCards.forEach((card, index) => {
+                const cardElement = document.getElementById(`drawn-card-${index}`);
+                if (cardElement) {
+                    if (allFlipped) {
+                        cardElement.classList.remove('flipped');
+                    } else {
+                        cardElement.classList.add('flipped');
+                    }
+                }
+            });
+            allFlipped = !allFlipped;
+        }
+
+        // 重新開始
+        function resetDraw() {
+            drawnCards = [];
+            allFlipped = false;
+            document.getElementById('drawnCardsSection').classList.add('hidden');
+        }
+
+        // 顯示卡片模態框
+        function showCardModal(cardId) {
+            const card = cardDatabase.find(c => c.id === cardId);
+            const modal = document.getElementById('cardModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const difficultyLabels = {
+                'beginner': '初探 🌱',
+                'intermediate': '深入 🌿',
+                'advanced': '深層 🌳'
+            };
+            
+            const categoryLabels = {
+                'awareness': '困境覺察',
+                'relationships': '關係映照',
+                'self-discovery': '自我發現',
+                'practice': '生活實踐',
+                'existence': '存在確認'
+            };
+
+            modalContent.innerHTML = `
+                <div class="text-center">
+                    <div class="text-6xl mb-4">${card.emoji}</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">${card.front}</h2>
+                    <div class="flex justify-center gap-2 mb-4">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">${categoryLabels[card.category]}</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">${difficultyLabels[card.difficulty]}</span>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed mb-6">${card.back}</p>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-medium text-gray-800 mb-2">💡 探索提示</h3>
+                        <p class="text-sm text-gray-600">找個安靜的地方，給自己10-15分鐘的時間，誠實地面對這個問題。可以寫下你的想法，或者只是靜靜思考。</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // 關閉模態框
+        function closeModal() {
+            const modal = document.getElementById('cardModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 更換主題
+        function changeTheme(theme) {
+            currentTheme = theme;
+            document.body.className = `min-h-screen theme-${theme}`;
+        }
+
+        // ESC 鍵關閉模態框
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
