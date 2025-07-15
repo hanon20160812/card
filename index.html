@@ -951,16 +951,16 @@
                         <div class="card-content">
 <br><br><br><br><br>
                             <h3 class="text-xl font-bold text-gray-800 mb-4">療癒字卡</h3>
-                            <p class="text-sm text-gray-600 mb-4">點擊翻轉查看訊息</p>
+                            <p class="text-sm text-gray-600 mb-1" style="color:White;">點擊翻轉查看訊息</p>
                         </div>
                     </div>
                     <div class="card-back">
                         ${positionLabel}
                         <div class="card-content">
-                            <div class="emoji">${card.emoji}</div>
+                            <div class="emoji mt-2">${card.emoji}</div>
                             <h3 class="text-lg font-bold mb-4 text-center healing-text">${card.front}</h3>
-                            <p class="text-sm leading-relaxed text-center healing-text mb-4 flex-1">${card.back}</p>
-                            <div class="mt-auto text-center">
+                            <p class="text-sm leading-relaxed text-center healing-text mb-4 flex-1 mr-4 ml-4">${card.back}</p>
+                            <div class="mt-auto text-center" style="margin-top: auto; transform: translateY(-25px);">
                                 <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-xs">
                                     ${getCategoryName(card.category)} · No.${card.id}
                                 </span>
