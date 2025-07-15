@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>療癒字卡 - 內在智慧的指引</title>
+    <title>我思舒心字卡 - 內在智慧的指引</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/jpeg" href="LOGO.jpg">
+    <link rel="apple-touch-icon" href="LOGO.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
@@ -107,14 +110,15 @@
         }
 
         .card-front {
-            background: url('CardBG.jpg') no-repeat center center;
-            background-size: cover;
+            background: url('card_BG2.png') no-repeat center center, url('CardBG.jpg') no-repeat center center;
+            background-size: 100% 100%, cover;
             box-shadow: 0 8px 25px rgba(107, 91, 115, 0.50);
             border: 2px solid #c9a96e;
         }
 
         .card-back {
-            background: linear-gradient(135deg, #f5f3f0 0%, #e8d5c4 100%);
+            background: url('card_BG2.png') no-repeat center center, linear-gradient(135deg, #f5f3f0 0%, #e8d5c4 100%);
+            background-size: 100% 100%, cover;
             color: #2c2838;
             transform: rotateY(180deg);
             box-shadow: 0 8px 25px rgba(107, 91, 115, 0.50);
@@ -716,6 +720,31 @@
         </div>
     </div>
 
+
+        <!-- 聯絡表單區域 -->
+
+        <section class="max-w-4xl mx-auto mb-8">
+            <div class="control-panel p-6">
+                <div class="max-w-2xl mx-auto text-center">
+                    <h2 class="text-2xl font-bold mb-4" style="color: #2c2838;">📝 我思字卡使用回饋</h2>
+                    <p class="text-base mb-6" style="color: #6b5b73;">
+                        感謝您使用我思舒心字卡！您的回饋將幫助我們持續改進，<br>
+                        請點擊下方按鈕填寫使用體驗問卷。
+                    </p>
+                    
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQqTjBb0NX9CUed4WYCXXA0kIdzfmvBM5xbr0yw3irFhoAhA/viewform" 
+                       target="_blank" 
+                       class="btn-milktea inline-block px-8 py-3 text-lg">
+                        💫 填寫回饋表單
+                    </a>
+                    
+                    <p class="text-sm mt-4" style="color: #6b5b73;">
+                        回覆時間約 5～7 分鐘。
+                    </p>
+                </div>
+            </div>
+        </section>
+
     <script>
         // 卡片資料庫
         const cardDatabase = [
@@ -1115,6 +1144,8 @@
             </div>
         </div>
     </footer>
+
+
 </body>
 
 </html>
