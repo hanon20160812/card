@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>🔮 神秘占卜卡 - 靈性探索系統</title>
+    <title>療癒字卡 - 內在智慧的指引</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Noto Sans TC', sans-serif;
             background: url('BG.JPG') no-repeat center center fixed;
@@ -17,15 +18,18 @@
             margin: 0;
             padding: 0;
         }
+
         .bg-overlay {
             position: fixed;
             inset: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(44, 40, 56, 0.85); /* 深夜藍半透明遮罩 */
+            background: rgba(44, 40, 56, 0.85);
+            /* 深夜藍半透明遮罩 */
             z-index: 0;
             pointer-events: none;
         }
+
         .logo-header {
             position: absolute;
             top: 32px;
@@ -35,14 +39,16 @@
             flex-direction: column;
             align-items: flex-start;
         }
+
         .logo-header img {
             width: 96px;
             height: 96px;
             border-radius: 24px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.30);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30);
             background: #f5f3f0;
             border: 2px solid #c9a96e;
         }
+
         .logo-title {
             position: absolute;
             top: 32px;
@@ -54,11 +60,11 @@
             background: rgba(201, 169, 110, 0.9);
             border-radius: 8px;
             padding: 4px 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.30);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
             border: 1px solid #c9a96e;
             z-index: 10;
         }
-        
+
         .card-flip {
             perspective: 1000px;
             width: 100%;
@@ -82,7 +88,7 @@
             transform: rotateY(180deg);
         }
 
-        .card-front, 
+        .card-front,
         .card-back {
             position: absolute;
             width: 100%;
@@ -140,21 +146,35 @@
         .card-flip.flipped:hover .card-inner {
             transform: translateY(-4px) rotateY(180deg);
         }
-        
+
         .card-flip:hover .card-front,
         .card-flip:hover .card-back {
             box-shadow: 0 25px 50px rgba(107, 91, 115, 0.60), 0 10px 25px rgba(107, 91, 115, 0.40);
         }
-        
+
         .gradient-bg {
             background: linear-gradient(135deg, #2c2838 0%, #6b5b73 100%);
         }
-        
-        .theme-warm { background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 50%, #f5f3f0 100%); }
-        .theme-cool { background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%); }
-        .theme-nature { background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 100%); }
-        .theme-sunset { background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%); }
-        .theme-ocean { background: linear-gradient(135deg, #2c2838 0%, #6b5b73 100%); }
+
+        .theme-warm {
+            background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 50%, #f5f3f0 100%);
+        }
+
+        .theme-cool {
+            background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%);
+        }
+
+        .theme-nature {
+            background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 100%);
+        }
+
+        .theme-sunset {
+            background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%);
+        }
+
+        .theme-ocean {
+            background: linear-gradient(135deg, #2c2838 0%, #6b5b73 100%);
+        }
 
         /* 位置標籤樣式改進 */
         .position-label {
@@ -225,18 +245,18 @@
                 height: 380px;
                 max-width: 260px;
             }
-            
+
             .icon-container {
                 width: 60px;
                 height: 60px;
                 margin-bottom: 1rem;
             }
-            
+
             .emoji {
                 font-size: 2.5rem;
             }
         }
-        
+
         /* 神秘紫金系按鈕 */
         .btn-milktea {
             background: linear-gradient(135deg, #c9a96e 0%, #e8d5c4 100%);
@@ -249,6 +269,7 @@
             box-shadow: 0 4px 12px rgba(107, 91, 115, 0.30);
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
+
         .btn-milktea:hover {
             background: linear-gradient(135deg, #e8d5c4 0%, #c9a96e 100%);
             color: #2c2838;
@@ -262,26 +283,31 @@
             color: #ffffff !important;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.50);
         }
-        
+
         .text-secondary {
             color: #c9a96e !important;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.30);
         }
-        
+
         /* 改善文字可讀性 */
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-weight: 700;
         }
-        
+
         .healing-text {
             color: #2c2838 !important;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
         }
-        
+
         .drop-shadow {
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.50));
         }
-        
+
         /* 控制面板樣式 */
         .control-panel {
             background: rgba(245, 243, 240, 0.95);
@@ -290,7 +316,7 @@
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
         }
-        
+
         /* 問題輸入區域樣式 */
         .question-input-area {
             background: rgba(245, 243, 240, 0.95);
@@ -300,14 +326,14 @@
             box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
             margin-bottom: 1.5rem;
         }
-        
+
         .question-input-area label {
             color: #2c2838;
             font-weight: 600;
             display: block;
             margin-bottom: 0.75rem;
         }
-        
+
         .question-input-area textarea {
             width: 100%;
             min-height: 80px;
@@ -321,24 +347,24 @@
             resize: vertical;
             transition: all 0.3s ease;
         }
-        
+
         .question-input-area textarea:focus {
             outline: none;
             border-color: #e8d5c4;
             box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.30);
             background: rgba(255, 255, 255, 0.98);
         }
-        
+
         .question-input-area textarea::placeholder {
             color: #6b5b73;
             opacity: 0.7;
         }
-        
+
         .control-panel label {
             color: #2c2838;
             font-weight: 600;
         }
-        
+
         .control-panel select {
             background: rgba(245, 243, 240, 0.95);
             color: #2c2838;
@@ -346,13 +372,13 @@
             border-radius: 8px;
             font-weight: 500;
         }
-        
+
         .control-panel select:focus {
             outline: none;
             border-color: #e8d5c4;
             box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.30);
         }
-        
+
         /* 卡片展示區域 */
         .cards-section {
             background: rgba(245, 243, 240, 0.95);
@@ -361,19 +387,19 @@
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
         }
-        
+
         .cards-section h2 {
             color: #2c2838;
         }
-        
+
         .cards-section h3 {
             color: #2c2838;
         }
-        
+
         .cards-section p {
             color: #2c2838;
         }
-        
+
         /* 解讀指引區域 */
         .reading-guide {
             background: rgba(201, 169, 110, 0.80);
@@ -381,46 +407,46 @@
             border-radius: 12px;
             backdrop-filter: blur(5px);
         }
-        
+
         .reading-guide h3 {
             color: #2c2838;
         }
-        
+
         .reading-guide p,
         .reading-guide div {
             color: #2c2838;
         }
-        
+
         /* 模態框樣式 */
         .modal-content {
             background: #f5f3f0;
             border: 2px solid #c9a96e;
             color: #2c2838;
         }
-        
+
         /* 移除所有不必要的白框 */
         * {
             box-sizing: border-box;
         }
-        
+
         button {
             border: none;
             outline: none;
         }
-        
+
         button:focus {
             outline: none;
         }
-        
+
         .btn-milktea {
             border: 2px solid #c9a96e;
         }
-        
+
         .btn-milktea:focus {
             outline: none;
             border-color: #e8d5c4;
         }
-        
+
         /* Footer 樣式 */
         .footer {
             background: rgba(44, 40, 56, 0.95);
@@ -430,17 +456,30 @@
             padding: 2rem 0;
             margin-top: 4rem;
         }
-        
+
         .footer-content {
             max-width: 6xl;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 2rem;
         }
-        
+
+        /* 響應式調整footer留白 */
+        @media (max-width: 768px) {
+            .footer-content {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content {
+                padding: 0 5rem;
+            }
+        }
+
         .footer-section {
             margin-bottom: 1.5rem;
         }
-        
+
         .footer-title {
             font-size: 1.25rem;
             font-weight: 700;
@@ -448,42 +487,42 @@
             margin-bottom: 0.75rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.30);
         }
-        
+
         .footer-text {
             font-size: 0.9rem;
             line-height: 1.6;
             opacity: 0.9;
         }
-        
+
         .footer-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, #c9a96e, transparent);
             margin: 1.5rem 0;
         }
-        
+
         .footer-bottom {
             text-align: center;
             font-size: 0.85rem;
             opacity: 0.8;
             margin-top: 1rem;
         }
-        
+
         .footer-links {
             display: flex;
             gap: 1.5rem;
             flex-wrap: wrap;
         }
-        
+
         .footer-link {
             color: #e8d5c4;
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
+
         .footer-link:hover {
             color: #c9a96e;
         }
-        
+
         .footer-certification {
             display: inline-block;
             background: rgba(201, 169, 110, 0.2);
@@ -493,31 +532,120 @@
             margin: 0.5rem 0.5rem 0.5rem 0;
             font-size: 0.8rem;
         }
+
+        /* 頁面頂部認證標籤容器 */
+        .header-certifications {
+            position: absolute;
+            top: 76px;
+            right: 32px;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            max-width: 280px;
+            justify-content: flex-end;
+        }
+
+        /* 頁面頂部認證標籤樣式 */
+        .header-certification {
+            display: inline-block;
+            background: rgba(245, 243, 240, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #c9a96e;
+            border-radius: 12px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #2c2838;
+            text-shadow: none;
+            box-shadow: 0 2px 8px rgba(107, 91, 115, 0.20);
+            white-space: nowrap;
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .header-certifications {
+                position: absolute;
+                top: 80px;
+                right: 16px;
+                left: 16px;
+                z-index: 10;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.4rem;
+                max-width: calc(100% - 32px);
+                justify-content: flex-end;
+            }
+            
+            .header-certification {
+                font-size: 0.65rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .logo-title {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .header-certifications {
+                top: 72px;
+                right: 24px;
+                max-width: 240px;
+            }
+            
+            .header-certification {
+                font-size: 0.68rem;
+                padding: 0.35rem 0.7rem;
+            }
+        }
     </style>
 </head>
+
 <body class="min-h-screen gradient-bg">
     <div class="bg-overlay"></div>
-            <div class="logo-header">
+    <div class="logo-header">
         <img src="LOGO.jpg" alt="LOGO">
     </div>
     <div class="logo-title">🔮 袖艷身心靈工作室</div>
+    <div class="header-certifications">
+        <span class="header-certification">🔮 專業認證</span>
+        <span class="header-certification">✨ 靈性導師</span>
+    </div>
+    
     <div class="container mx-auto px-4 py-8">
         <!-- 標題區域 -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-bold text-primary mb-4 drop-shadow">🔮我思字卡 </h1>
-            <p class="text-xl text-primary mb-8 ">靈性探索系統 - 80組深度自我覺醒</p>
-            <!-- 主題切換按鈕已移除 -->
-        </div>
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                🔮 療癒字卡
+            </h1>
+            <p class="text-lg md:text-xl text-white mb-8 max-w-2xl mx-auto leading-relaxed">
+                每一張卡片都是一面鏡子，映照出你內在的智慧與力量。<br>
+                讓直覺引導你，找到此刻最需要的訊息。
+            </p>
+        </header>
 
-        <!-- 問題輸入區域 -->
-        <div class="max-w-4xl mx-auto mb-6">
-            <div class="question-input-area p-6">
-                <label for="questionInput">💭 簡單敘述想問的問題或煩惱</label>
-                <textarea 
-                    id="questionInput" 
-                    placeholder="請描述您目前遇到的問題、困擾或想要探索的議題...例如：工作壓力、感情關係、人生方向等"
-                    rows="3"
-                ></textarea>
+        <!-- 使用指引 -->
+        <div class="max-w-4xl mx-auto mb-8">
+            <div class="control-panel p-6">
+                <h2 class="text-xl font-bold text-center mb-4" style="color: #2c2838;">💫 使用指引</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl mb-3">🧘‍♀️</div>
+                        <h3 class="font-medium mb-2" style="color: #2c2838;">靜心準備</h3>
+                        <p class="text-sm" style="color: #2c2838;">找個安靜的地方，深呼吸三次，讓心靈平靜下來</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl mb-3">❓</div>
+                        <h3 class="font-medium mb-2" style="color: #2c2838;">帶著問題</h3>
+                        <p class="text-sm" style="color: #2c2838;">在心中想著你想要探索的問題或生活狀況</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl mb-3">💝</div>
+                        <h3 class="font-medium mb-2" style="color: #2c2838;">開放接收</h3>
+                        <p class="text-sm" style="color: #2c2838;">以開放的心接收卡片訊息，相信內在的智慧</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -527,24 +655,27 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <!-- 抽卡模式選擇 -->
                     <div>
-                        <label class="block font-medium mb-2">🔮 占卜模式</label>
-                        <select id="drawModeSelect" class="w-full px-4 py-2 rounded-lg font-medium">
-                            <option value="single">單張預言 🎴</option>
-                            <option value="three">三張命運 🎴🎴🎴</option>
-                            <option value="five">五向靈視 🎴🎴🎴🎴🎴</option>
+                        <label class="block font-medium mb-2">🔮 抽卡模式</label>
+                        <select id="drawModeSelect" class="w-full"
+                            style="padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 600; background: rgba(245, 243, 240, 0.95); color: #2c2838; border: 2px solid #c9a96e; box-sizing: border-box;">
+                            <option value="single">單張指引 🎴</option>
+                            <option value="three">三張展開 🎴🎴🎴</option>
+                            <option value="five">五向深探 🎴🎴🎴🎴🎴</option>
                         </select>
                     </div>
-                    
+
                     <!-- 抽卡控制 -->
                     <div>
-                        <label class="block font-medium mb-2">✨ 靈性操作</label>
+                        <label class="block font-medium mb-2">　　　　</label>
                         <div class="space-y-2">
-                            <button onclick="drawCards()" class="btn-milktea w-full">🔮 開始占卜</button>
+                            <button onclick="drawCards()" class="btn-milktea w-full">🔮 開始抽卡</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <!-- 抽取的卡片展示區域 -->
         <div id="drawnCardsSection" class="max-w-6xl mx-auto mb-8 hidden">
@@ -553,27 +684,33 @@
                     <h2 class="text-2xl font-bold">✨ 你的預言</h2>
                     <div class="space-x-2">
                         <button onclick="flipAllCards()" class="btn-milktea">🔮 揭示預言</button>
-                        <button onclick="resetDraw()" class="btn-milktea">🔄 重新占卜</button>
+                        <button onclick="resetDraw()" class="btn-milktea">🔄 重新抽卡</button>
                     </div>
                 </div>
-                
-                <!-- 卡片解讀指引 -->
-                <div id="readingGuide" class="reading-guide p-4 mb-6">
-                    <h3 class="font-medium mb-2">🔮 靈性解讀指引</h3>
-                    <p id="guideText" class="text-sm"></p>
-                </div>
-                
+
+
+
                 <!-- 抽取的卡片容器 -->
                 <div id="drawnCardsContainer" class="grid gap-6">
                     <!-- 抽取的卡片將顯示在這裡 -->
+                </div>
+
+                <br><br><br>
+
+                <!-- 卡片解讀指引 -->
+                <div id="readingGuide" class="control-panel rounded-xl p-6 mb-8">
+                    <h3 class="font-medium mb-3 text-lg" style="color: #2c2838;">🔮 解讀指引</h3>
+                    <div id="guideText" class="text-sm" style="color: #2c2838;"></div>
                 </div>
             </div>
         </div>
 
         <!-- 單張卡片模態框 -->
-        <div id="cardModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50" onclick="closeModal()">
+        <div id="cardModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50"
+            onclick="closeModal()">
             <div class="modal-content rounded-2xl p-8 max-w-md mx-4 relative" onclick="event.stopPropagation()">
-                <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                <button onclick="closeModal()"
+                    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
                 <div id="modalContent"></div>
             </div>
         </div>
@@ -654,7 +791,7 @@
             { id: 63, category: 'practice', difficulty: 'advanced', front: '擁抱尚未完成', back: '你不需要急著變好，只需要在破碎中讓光發芽。問問自己：我能否擁抱所有尚未完成的我？', emoji: '🌱' },
             { id: 64, category: 'practice', difficulty: 'advanced', front: '新的本質', back: '當你發現自己不是原來的那個你了，這不是迷失，而是找到了更真實的自己。你準備好迎接新的本質嗎？', emoji: '✨' },
             { id: 65, category: 'practice', difficulty: 'intermediate', front: '空下來的真實', back: '當你什麼都不做時，是否擔心自己變得不重要？問問自己：空下來的我，是否反而更真實了？', emoji: '🕊️' },
-            
+
             // 存在確認類 (66-80)
             { id: 66, category: 'existence', difficulty: 'beginner', front: '不再縮小自己', back: '你是否總是試著變得像誰、說得更乖，好讓別人喜歡？問問自己：我準備好停止縮小自己了嗎？', emoji: '🌟' },
             { id: 67, category: 'existence', difficulty: 'intermediate', front: '夠了的存在', back: '當你不再追問「我該怎麼變好」，而是問「我是誰」時，會聽到什麼聲音？也許答案就是：我就是我，就夠了。', emoji: '💎' },
@@ -692,10 +829,9 @@
         // 抽取卡片
         function drawCards() {
             const drawMode = document.getElementById('drawModeSelect').value;
-            const questionInput = document.getElementById('questionInput').value.trim();
             let numberOfCards;
-            
-            switch(drawMode) {
+
+            switch (drawMode) {
                 case 'single':
                     numberOfCards = 1;
                     break;
@@ -708,19 +844,19 @@
                 default:
                     numberOfCards = 1;
             }
-            
+
             // 隨機選取卡片
             const shuffled = [...cardDatabase].sort(() => 0.5 - Math.random());
             drawnCards = shuffled.slice(0, numberOfCards);
             allFlipped = false;
-            
+
             // 顯示抽取的卡片
             displayDrawnCards();
-            showReadingGuide(drawMode, questionInput);
-            
+            showReadingGuide(drawMode);
+
             // 顯示抽卡區域
             document.getElementById('drawnCardsSection').classList.remove('hidden');
-            
+
             // 平滑滾動到卡片區域
             setTimeout(() => {
                 document.getElementById('drawnCardsSection').scrollIntoView({
@@ -734,7 +870,7 @@
         function displayDrawnCards() {
             const container = document.getElementById('drawnCardsContainer');
             const drawMode = document.getElementById('drawModeSelect').value;
-            
+
             // 設定網格佈局
             let gridClass = '';
             if (drawMode === 'single') {
@@ -744,10 +880,10 @@
             } else if (drawMode === 'five') {
                 gridClass = 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 max-w-7xl mx-auto';
             }
-            
+
             container.className = `grid gap-8 ${gridClass}`;
             container.innerHTML = '';
-            
+
             drawnCards.forEach((card, index) => {
                 const cardElement = createDrawnCardElement(card, index);
                 container.appendChild(cardElement);
@@ -760,7 +896,7 @@
             cardDiv.className = 'card-flip cursor-pointer';
             cardDiv.id = `drawn-card-${index}`;
             cardDiv.onclick = () => flipCard(cardDiv);
-            
+
             const difficultyLabels = {
                 'beginner': '初探 🌱',
                 'intermediate': '深入 🌿',
@@ -770,7 +906,7 @@
             // 五向展開的位置標籤
             const fiveCardPositions = ['A：靈性觸發', 'B：內在智慧', 'C：命運結果', '整合新視野', '靈性行動'];
             const threeCardPositions = ['過去/靈魂根源', '現在/靈性核心', '未來/神聖指引'];
-            
+
             let positionLabel = '';
             const drawMode = document.getElementById('drawModeSelect').value;
             if (drawMode === 'five' && index < 5) {
@@ -808,59 +944,66 @@
         }
 
         // 顯示解讀指引
-        function showReadingGuide(drawMode, questionInput) {
-            const guideContainer = document.getElementById('readingGuide');
+        function showReadingGuide(drawMode) {
+            const guideText = document.getElementById('guideText');
             let guideHTML = '';
-            
-            // 如果有輸入問題，顯示問題摘要
-            let questionSummary = '';
-            if (questionInput) {
-                questionSummary = `
-                    <div class="mb-4 p-3 bg-white/20 rounded-lg border border-white/30">
-                        <h4 class="font-medium text-sm mb-1">💭 您的問題：</h4>
-                        <p class="text-sm italic">"${questionInput}"</p>
-                    </div>
-                `;
-            }
-            
-            switch(drawMode) {
+
+            switch (drawMode) {
                 case 'single':
                     guideHTML = `
-                        ${questionSummary}
-                        <h3 class="font-medium mb-2">🔮 單張預言解讀指引</h3>
-                        <p class="text-sm mb-2">這張卡片是宇宙此刻賜予你的神聖訊息。靜下心來，感受靈性想要傳達給你的智慧。</p>
-                        <p class="text-sm">問問自己：這個預言如何與我當前的靈性旅程產生共鳴？</p>
+                        <p class="text-sm mb-2" style="color: #2c2838;">這張卡片是宇宙此刻賜予你的神聖訊息。靜下心來，感受靈性想要傳達給你的智慧。</p>
+                        <p class="text-sm" style="color: #2c2838;">💫 問問自己：這個預言如何與我當前的靈性旅程產生共鳴？</p>
                     `;
                     break;
                 case 'three':
                     guideHTML = `
-                        ${questionSummary}
-                        <h3 class="font-medium mb-3">🔮 三張命運解讀指引</h3>
-                        <div class="space-y-2 text-sm">
-                            <div><strong>左卡（過去/靈魂根源）：</strong>影響當前靈性狀況的過去經驗或靈魂模式</div>
-                            <div><strong>中卡（現在/靈性核心）：</strong>當前最需要關注的靈性核心議題</div>
-                            <div><strong>右卡（未來/神聖指引）：</strong>靈性前進方向的建議或即將展現的神聖可能性</div>
-                            <p class="mt-4 text-sm opacity-90">觀察三張卡片之間的靈性關聯性，它們共同訴說著你靈魂故事的一個神聖章節。</p>
+                        <div class="grid md:grid-cols-3 gap-4 text-sm mb-4">
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">🌅 過去/靈魂根源</div>
+                                <div class="text-xs" style="color: #2c2838;">影響當前靈性狀況的過去經驗或靈魂模式</div>
+                            </div>
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">⭐ 現在/靈性核心</div>
+                                <div class="text-xs" style="color: #2c2838;">當前最需要關注的靈性核心議題</div>
+                            </div>
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">🌟 未來/神聖指引</div>
+                                <div class="text-xs" style="color: #2c2838;">靈性前進方向的建議或即將展現的神聖可能性</div>
+                            </div>
                         </div>
+                        <p class="text-sm" style="color: #2c2838;">💫 觀察三張卡片之間的靈性關聯性，它們共同訴說著你靈魂故事的一個神聖章節。</p>
                     `;
                     break;
                 case 'five':
                     guideHTML = `
-                        ${questionSummary}
-                        <h3 class="font-medium mb-3">🔮 靈性ABC五向展開解讀</h3>
-                        <div class="space-y-2 text-sm">
-                            <div><strong>第一張（A：靈性觸發）：</strong>近期觸動你靈性的事件或外在刺激。</div>
-                            <div><strong>第二張（B：內在智慧）：</strong>你對事件的靈性詮釋與深層智慧。</div>
-                            <div><strong>第三張（C：命運結果）：</strong>由靈性智慧產生的情緒、行為或內在結果。</div>
-                            <div><strong>第四張（整合新視野）：</strong>如果你願意開啟新的靈性視野，你會怎麼重新看待它？</div>
-                            <div><strong>第五張（靈性行動）：</strong>基於新的靈性理解，能採取的下一個神聖行動。</div>
-                            <p class="mt-4 text-sm opacity-90">這個展開方式協助你用一套靈性路徑，從事件經驗走向靈性轉化與前行。</p>
+                        <div class="grid md:grid-cols-5 gap-3 text-xs mb-4">
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">A：靈性觸發</div>
+                                <div style="color: #2c2838;">近期觸動你靈性的事件或外在刺激</div>
+                            </div>
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">B：內在智慧</div>
+                                <div style="color: #2c2838;">你對事件的靈性詮釋與深層智慧</div>
+                            </div>
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">C：命運結果</div>
+                                <div style="color: #2c2838;">由靈性智慧產生的情緒、行為或內在結果</div>
+                            </div>
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">整合新視野</div>
+                                <div style="color: #2c2838;">如果你願意開啟新的靈性視野，你會怎麼重新看待它？</div>
+                            </div>
+                            <div style="background: rgba(201, 169, 110, 0.20); border: 1px solid rgba(201, 169, 110, 0.40); border-radius: 8px; padding: 12px;">
+                                <div class="font-medium mb-1" style="color: #2c2838;">靈性行動</div>
+                                <div style="color: #2c2838;">基於新的靈性理解，能採取的下一個神聖行動</div>
+                            </div>
                         </div>
+                        <p class="text-sm" style="color: #2c2838;">💫 這個展開方式協助你用一套靈性路徑，從事件經驗走向靈性轉化與前行。</p>
                     `;
                     break;
             }
-            
-            guideContainer.innerHTML = guideHTML;
+
+            guideText.innerHTML = guideHTML;
         }
 
         // 翻轉單張卡片
@@ -895,13 +1038,13 @@
             const card = cardDatabase.find(c => c.id === cardId);
             const modal = document.getElementById('cardModal');
             const modalContent = document.getElementById('modalContent');
-            
+
             const difficultyLabels = {
                 'beginner': '初探 🌱',
                 'intermediate': '深入 🌿',
                 'advanced': '深層 🌳'
             };
-            
+
             const categoryLabels = {
                 'awareness': '困境覺察',
                 'relationships': '關係映照',
@@ -925,7 +1068,7 @@
                     </div>
                 </div>
             `;
-            
+
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
@@ -944,13 +1087,13 @@
         }
 
         // ESC 鍵關閉模態框
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeModal();
             }
         });
     </script>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -960,29 +1103,25 @@
                     <h3 class="footer-title">🔮 袖艷身心靈工作室</h3>
                     <p class="footer-text">
                         <strong>Xiuyan Divination Studio</strong><br>
-                        專業靈性諮詢與占卜服務<br>
+                        專業靈性諮詢與靈性指引服務<br>
                         致力於為您提供最準確的靈性指引<br>
                         讓每個靈魂都能找到內在的智慧之光
                     </p>
                 </div>
-                
+
                 <!-- 服務特色 -->
                 <div class="footer-section">
                     <h3 class="footer-title">✨ 專業服務</h3>
                     <p class="footer-text">
-                        • 個人運勢占卜<br>
+                        • 個人運勢指引<br>
                         • 靈性諮詢指導<br>
                         • 心靈療癒服務<br>
                         • 直覺開發訓練<br>
                         • 命理分析解讀
                     </p>
-                    <div class="mt-4">
-                        <span class="footer-certification">🔮 專業認證</span>
-                        <span class="footer-certification">✨ 靈性導師</span>
-                        <span class="footer-certification">🌟 十年經驗</span>
-                    </div>
+
                 </div>
-                
+
                 <!-- 聯絡資訊 -->
                 <div class="footer-section">
                     <h3 class="footer-title">📞 聯絡我們</h3>
@@ -1001,18 +1140,19 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-divider"></div>
-            
+
             <div class="footer-bottom">
                 <p>
-                    © 2024 袖艷占卜工作室 (Xiuyan Divination Studio). All rights reserved.<br>
+                    © 2024 袖艷靈性指引工作室 (Xiuyan Divination Studio). All rights reserved.<br>
                     <span class="text-sm opacity-70">
-                        Professional Spiritual Consultation & Divination Services | 專業靈性諮詢與占卜服務
+                        Professional Spiritual Consultation & Divination Services | 專業靈性諮詢與靈性指引服務
                     </span>
                 </p>
             </div>
         </div>
     </footer>
 </body>
+
 </html>
