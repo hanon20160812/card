@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
 
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我思舒心字卡 - 內在智慧的指引</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/jpeg" href="LOGO.jpg">
-    <link rel="apple-touch-icon" href="LOGO.jpg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>我思舒心字卡 - 內在智慧的指引</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="LOGO.jpg" rel="icon" type="image/jpeg"/>
+<link href="LOGO.jpg" rel="apple-touch-icon"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
 
         body {
@@ -27,19 +27,18 @@
             inset: 0;
             width: 100vw;
             height: 100vh;
-
             z-index: 0;
             pointer-events: none;
         }
 
         .logo-header {
-            position: absolute;
-            top: 32px;
-            left: 32px;
+            position: relative;
+            padding:1rem;
+            text-align:center;
             z-index: 10;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items:center;
         }
 
         .logo-header img {
@@ -159,27 +158,6 @@
             background: linear-gradient(135deg, #2c2838 0%, #6b5b73 100%);
         }
 
-        .theme-warm {
-            background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 50%, #f5f3f0 100%);
-        }
-
-        .theme-cool {
-            background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%);
-        }
-
-        .theme-nature {
-            background: linear-gradient(135deg, #e8d5c4 0%, #f5f3f0 100%);
-        }
-
-        .theme-sunset {
-            background: linear-gradient(135deg, #c9a96e 0%, #f5f3f0 100%);
-        }
-
-        .theme-ocean {
-            background: linear-gradient(135deg, #2c2838 0%, #6b5b73 100%);
-        }
-
-        /* 位置標籤樣式改進 */
         .position-label {
             position: absolute;
             top: 8px;
@@ -201,7 +179,6 @@
             color: #2c2838;
         }
 
-        /* 卡片內容區域 */
         .card-content {
             position: relative;
             z-index: 10;
@@ -214,7 +191,6 @@
             text-align: center;
         }
 
-        /* 圖標容器 */
         .icon-container {
             width: 80px;
             height: 80px;
@@ -234,7 +210,6 @@
             filter: drop-shadow(0 2px 4px rgba(107, 91, 115, 0.30));
         }
 
-        /* emoji 樣式 */
         .emoji {
             font-size: 3.5rem;
             margin-bottom: 1rem;
@@ -242,7 +217,6 @@
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.30));
         }
 
-        /* 響應式調整 */
         @media (max-width: 768px) {
             .card-flip {
                 height: 380px;
@@ -260,7 +234,6 @@
             }
         }
 
-        /* 神秘紫金系按鈕 */
         .btn-milktea {
             background: linear-gradient(135deg, #c9a96e 0%, #e8d5c4 100%);
             color: #2c2838;
@@ -281,7 +254,6 @@
             border-color: #e8d5c4;
         }
 
-        /* 主要文字顏色調整 */
         .text-primary {
             color: #ffffff !important;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.50);
@@ -292,13 +264,7 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.30);
         }
 
-        /* 改善文字可讀性 */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1, h2, h3, h4, h5, h6 {
             font-weight: 700;
         }
 
@@ -311,56 +277,12 @@
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.50));
         }
 
-        /* 控制面板樣式 */
         .control-panel {
             background: rgba(245, 243, 240, 0.95);
             backdrop-filter: blur(10px);
             border: 2px solid #c9a96e;
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
-        }
-
-        /* 問題輸入區域樣式 */
-        .question-input-area {
-            background: rgba(245, 243, 240, 0.95);
-            backdrop-filter: blur(10px);
-            border: 2px solid #c9a96e;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
-            margin-bottom: 1.5rem;
-        }
-
-        .question-input-area label {
-            color: #2c2838;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.75rem;
-        }
-
-        .question-input-area textarea {
-            width: 100%;
-            min-height: 80px;
-            padding: 1rem;
-            border: 2px solid #c9a96e;
-            border-radius: 12px;
-            background: rgba(245, 243, 240, 0.95);
-            color: #2c2838;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 0.95rem;
-            resize: vertical;
-            transition: all 0.3s ease;
-        }
-
-        .question-input-area textarea:focus {
-            outline: none;
-            border-color: #e8d5c4;
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.30);
-            background: rgba(255, 255, 255, 0.98);
-        }
-
-        .question-input-area textarea::placeholder {
-            color: #6b5b73;
-            opacity: 0.7;
         }
 
         .control-panel label {
@@ -382,7 +304,6 @@
             box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.30);
         }
 
-        /* 卡片展示區域 */
         .cards-section {
             background: rgba(245, 243, 240, 0.95);
             backdrop-filter: blur(10px);
@@ -391,19 +312,10 @@
             box-shadow: 0 8px 32px rgba(107, 91, 115, 0.40);
         }
 
-        .cards-section h2 {
+        .cards-section h2, .cards-section h3, .cards-section p {
             color: #2c2838;
         }
 
-        .cards-section h3 {
-            color: #2c2838;
-        }
-
-        .cards-section p {
-            color: #2c2838;
-        }
-
-        /* 解讀指引區域 */
         .reading-guide {
             background: rgba(201, 169, 110, 0.80);
             border: 1px solid #c9a96e;
@@ -411,23 +323,16 @@
             backdrop-filter: blur(5px);
         }
 
-        .reading-guide h3 {
+        .reading-guide h3, .reading-guide p, .reading-guide div {
             color: #2c2838;
         }
 
-        .reading-guide p,
-        .reading-guide div {
-            color: #2c2838;
-        }
-
-        /* 模態框樣式 */
         .modal-content {
             background: #f5f3f0;
             border: 2px solid #c9a96e;
             color: #2c2838;
         }
 
-        /* 移除所有不必要的白框 */
         * {
             box-sizing: border-box;
         }
@@ -450,7 +355,6 @@
             border-color: #e8d5c4;
         }
 
-        /* Footer 樣式 */
         .footer {
             background: rgba(44, 40, 56, 0.95);
             backdrop-filter: blur(10px);
@@ -466,7 +370,6 @@
             padding: 0 2rem;
         }
 
-        /* 響應式調整footer留白 */
         @media (max-width: 768px) {
             .footer-content {
                 padding: 0 1.5rem;
@@ -536,7 +439,6 @@
             font-size: 0.8rem;
         }
 
-        /* 頁面頂部認證標籤容器 */
         .header-certifications {
             position: absolute;
             top: 96px;
@@ -549,7 +451,6 @@
             justify-content: flex-end;
         }
 
-        /* 頁面頂部認證標籤樣式 */
         .header-certification {
             display: inline-block;
             background: rgba(245, 243, 240, 0.195);
@@ -557,7 +458,7 @@
             border: 1px solid #c9a96e;
             border-radius: 12px;
             margin-top: 0.2rem;
-            padding:  0.5rem;
+            padding: 0.5rem;
             font-size: 0.7rem;
             font-weight: 600;
             color: #ffffff;
@@ -566,7 +467,6 @@
             white-space: nowrap;
         }
 
-        /* 響應式調整 */
         @media (max-width: 768px) {
             .header-certifications {
                 position: absolute;
@@ -603,149 +503,274 @@
                 padding: 0.35rem 0.7rem;
             }
         }
-    </style>
-</head>
 
+        /* 新增：快速指引區域樣式 */
+        .quick-guide {
+            background: rgba(201, 169, 110, 0.15);
+            border: 1px solid rgba(201, 169, 110, 0.30);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .quick-guide-item {
+            background: rgba(245, 243, 240, 0.85);
+            border-left: 4px solid #c9a96e;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-guide-item:hover {
+            background: rgba(245, 243, 240, 0.95);
+            transform: translateX(2px);
+        }
+
+        .expand-button {
+            background: linear-gradient(135deg, #c9a96e 0%, #e8d5c4 100%);
+            color: #2c2838;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid #c9a96e;
+            box-shadow: 0 2px 8px rgba(107, 91, 115, 0.30);
+            font-size: 0.9rem;
+        }
+
+        .expand-button:hover {
+            background: linear-gradient(135deg, #e8d5c4 0%, #c9a96e 100%);
+            transform: translateY(-1px);
+        }
+
+        .usage-tips {
+            background: rgba(201, 169, 110, 0.10);
+            border: 1px dashed rgba(201, 169, 110, 0.40);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .tip-category {
+            background: rgba(245, 243, 240, 0.80);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+    
+
+/* 手機裝置優化樣式 */
+@media (max-width: 768px) {
+  .card-container, .cards-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .card {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 1rem 0;
+    font-size: 1rem;
+    transform: none !important;
+  }
+
+  .card .text-content, .card .back, .card .front {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* 修正 iPhone 上文字鏡像或亂碼 */
+.card {
+  transform: none !important;
+}
+</style>
+</head>
 <body class="min-h-screen gradient-bg">
-    <div class="bg-overlay"></div>
-    <div class="logo-header">
-        <img src="LOGO.jpg" alt="LOGO">
+<div class="bg-overlay"></div>
+<div class="logo-header">
+    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+        <img alt="LOGO" src="LOGO.jpg" style="width: 60px; height: 60px; margin-right: 1rem; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30); background: #f5f3f0; border: 2px solid #c9a96e;"/>
+        <div style="font-size: 1.25rem; font-weight: 700; color: #f5f3f0; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.50);">🔮 袖艷靈性指引工作室</div>
     </div>
-    <div class="logo-title">🔮 袖艷靈性指引工作室</div>
-    <div class="header-certifications">
+    <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
         <span class="header-certification">🔮 專業認證</span>
         <span class="header-certification">✨ 靈性導師</span>
     </div>
-    
-    <div class="container mx-auto px-4 py-8">
-        <!-- 標題區域 -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+<div class="container mx-auto px-4 py-8">
+<!-- 標題區域 -->
+<header class="text-center mb-12">
+<h1 class="text-3xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
                 🔮 我思舒心字卡
             </h1>
-            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed" style="color: #93759e;">
-                每一張卡片都是一面鏡子，映照出你內在的智慧與力量。<br>
+<p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed" style="color: #93759e;">
+                每一張卡片都是一面鏡子，映照出你內在的智慧與力量。<br/>
                 讓直覺引導你，找到此刻最需要的訊息。
             </p>
-        </header>
-
-        <!-- 使用指引 -->
-        <div class="max-w-4xl mx-auto mb-8">
-            <div class="control-panel p-6">
-                <h2 class="text-xl font-bold text-center mb-4" style="color: #2c2838;">💫 使用指引</h2>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div class="text-3xl mb-3">🧘‍♀️</div>
-                        <h3 class="font-medium mb-2" style="color: #2c2838;">靜心準備</h3>
-                        <p class="text-sm" style="color: #2c2838;">找個安靜的地方，<br>深呼吸三次，讓心靈平靜下來。</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-3">❓</div>
-                        <h3 class="font-medium mb-2" style="color: #2c2838;">帶著問題</h3>
-                        <p class="text-sm" style="color: #2c2838;">在心中想著你想要<br>探索的問題或生活狀況。</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-3">💝</div>
-                        <h3 class="font-medium mb-2" style="color: #2c2838;">開放接收</h3>
-                        <p class="text-sm" style="color: #2c2838;">以開放的心接收卡片訊息，<br>相信內在的智慧。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 控制面板 -->
-        <div class="max-w-4xl mx-auto mb-8">
-            <div class="control-panel p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <!-- 抽卡模式選擇 -->
-                    <div>
-                        <label class="block font-medium mb-2">🔮 抽卡模式</label>
-                        <select id="drawModeSelect" class="w-full"
-                            style="padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 600; background: rgba(245, 243, 240, 0.95); color: #2c2838; border: 2px solid #c9a96e; box-sizing: border-box;">
-                            <option value="single">單張指引 🎴</option>
-                            <option value="three">三張展開 🎴🎴🎴</option>
-                            <option value="five">五向深探 🎴🎴🎴🎴🎴</option>
-                        </select>
-                    </div>
-
-                    <!-- 抽卡控制 -->
-                    <div>
-                        <label class="block font-medium mb-2">　　　　</label>
-                        <div class="space-y-2">
-                            <button onclick="drawCards()" class="btn-milktea w-full">🔮 開始抽卡</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- 抽取的卡片展示區域 -->
-        <div id="drawnCardsSection" class="max-w-6xl mx-auto mb-8 hidden">
-            <div class="cards-section p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold">✨ 你的卡片</h2>
-                    <div class="space-x-2">
-                        <button onclick="flipAllCards()" class="btn-milktea">🔮 翻轉卡片</button>
-                        <button onclick="resetDraw()" class="btn-milktea">🔄 重新開始</button>
-                    </div>
-                </div>
-
-
-
-                <!-- 抽取的卡片容器 -->
-                <div id="drawnCardsContainer" class="grid gap-6">
-                    <!-- 抽取的卡片將顯示在這裡 -->
-                </div>
-
-                <br><br><br>
-
-                <!-- 卡片解讀指引 -->
-                <div id="readingGuide" class="control-panel rounded-xl p-6 mb-8">
-                    <h3 class="font-medium mb-3 text-lg" style="color: #2c2838;">🔮 解讀指引</h3>
-                    <div id="guideText" class="text-sm" style="color: #2c2838;"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 單張卡片模態框 -->
-        <div id="cardModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50"
-            onclick="closeModal()">
-            <div class="modal-content rounded-2xl p-8 max-w-md mx-4 relative" onclick="event.stopPropagation()">
-                <button onclick="closeModal()"
-                    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-                <div id="modalContent"></div>
-            </div>
-        </div>
-    </div>
-
-
-        <!-- 聯絡表單區域 -->
-
-        <section class="max-w-4xl mx-auto mb-8">
-            <div class="control-panel p-6">
-                <div class="max-w-2xl mx-auto text-center">
-                    <h2 class="text-2xl font-bold mb-4" style="color: #2c2838;">📝 我思字卡使用回饋</h2>
-                    <p class="text-base mb-6" style="color: #6b5b73;">
-                        感謝您使用我思舒心字卡！您的回饋將幫助我們持續改進，<br>
-                        請點擊下方按鈕填寫使用體驗問卷。
-                    </p>
-                    
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQqTjBb0NX9CUed4WYCXXA0kIdzfmvBM5xbr0yw3irFhoAhA/viewform" 
-                       target="_blank" 
-                       class="btn-milktea inline-block px-8 py-3 text-lg">
-                        💫 填寫回饋表單
-                    </a>
-                    
-                    <p class="text-sm mt-4" style="color: #6b5b73;">
-                        回覆時間約 5～7 分鐘。
-                    </p>
-                </div>
-            </div>
-        </section>
-
-    <script>
+</header>
+<!-- 使用指引 -->
+<div class="max-w-4xl mx-auto mb-8">
+<div class="control-panel p-6">
+<h2 class="text-xl font-bold text-center mb-4" style="color: #2c2838;">💫 使用指引</h2>
+<div class="grid md:grid-cols-3 gap-6">
+<div class="text-center">
+<div class="text-3xl mb-3">🧘‍♀️</div>
+<h3 class="font-medium mb-2" style="color: #2c2838;">靜心準備</h3>
+<p class="text-sm" style="color: #2c2838;">找個安靜的地方，<br/>深呼吸三次，讓心靈平靜下來。</p>
+</div>
+<div class="text-center">
+<div class="text-3xl mb-3">❓</div>
+<h3 class="font-medium mb-2" style="color: #2c2838;">帶著問題</h3>
+<p class="text-sm" style="color: #2c2838;">在心中想著你想要<br/>探索的問題或生活狀況。</p>
+</div>
+<div class="text-center">
+<div class="text-3xl mb-3">💝</div>
+<h3 class="font-medium mb-2" style="color: #2c2838;">開放接收</h3>
+<p class="text-sm" style="color: #2c2838;">以開放的心接收卡片訊息，<br/>相信內在的智慧。</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 控制面板 -->
+<div class="max-w-4xl mx-auto mb-8">
+<div class="control-panel p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<!-- 抽卡模式選擇 -->
+<div>
+<label class="block font-medium mb-2">🔮 抽卡模式</label>
+<select class="w-full" id="drawModeSelect" style="padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 600; background: rgba(245, 243, 240, 0.95); color: #2c2838; border: 2px solid #c9a96e; box-sizing: border-box;">
+<option value="single">單張指引 🎴</option>
+<option value="three">三張展開 🎴🎴🎴</option>
+<option value="five">五向深探 🎴🎴🎴🎴🎴</option>
+</select>
+</div>
+<!-- 抽卡控制 -->
+<div>
+<label class="block font-medium mb-2">　　　　</label>
+<div class="space-y-2">
+<button class="btn-milktea w-full" onclick="drawCards()">🔮 開始抽卡</button>
+</div>
+</div>
+</div>
+<!-- 快速使用方式提示 -->
+<div class="text-center mt-4">
+<button class="expand-button" id="usageTipsBtn" onclick="toggleUsageTips()">
+                        📚 查看使用方式與日常實踐
+                    </button>
+</div>
+<!-- 使用方式詳細說明 -->
+<div class="usage-tips" id="usageTips">
+<div class="grid md:grid-cols-2 gap-4">
+<div class="tip-category">
+<h4 class="font-semibold mb-2 text-lg" style="color: #2c2838;">🌅 每日實踐</h4>
+<div class="text-sm space-y-1" style="color: #2c2838;">
+<p><strong>晨間指引：</strong>抽一張卡片作為當天的靈性主題</p>
+<p><strong>晚間回顧：</strong>回顧當天如何體現了卡片的訊息</p>
+<p><strong>困難時刻：</strong>遇到挑戰時抽卡尋求指引</p>
+</div>
+</div>
+<div class="tip-category">
+<h4 class="font-semibold mb-2 text-lg" style="color: #2c2838;">🌙 週期實踐</h4>
+<div class="text-sm space-y-1" style="color: #2c2838;">
+<p><strong>週日規劃：</strong>用三張展開為新的一週設定意圖</p>
+<p><strong>新月意圖：</strong>在新月時用五向深探設定月度意圖</p>
+<p><strong>滿月釋放：</strong>在滿月時回顧並釋放不再需要的模式</p>
+</div>
+</div>
+<div class="tip-category">
+<h4 class="font-semibold mb-2 text-lg" style="color: #2c2838;">💫 特殊用途</h4>
+<div class="text-sm space-y-1" style="color: #2c2838;">
+<p><strong>重大決策：</strong>為重要選擇尋求靈性指引</p>
+<p><strong>關係困擾：</strong>探索人際關係的深層課題</p>
+<p><strong>自我探索：</strong>深入了解內在的信念和模式</p>
+</div>
+</div>
+<div class="tip-category">
+<h4 class="font-semibold mb-2 text-lg" style="color: #2c2838;">📝 整合建議</h4>
+<div class="text-sm space-y-1" style="color: #2c2838;">
+<p><strong>記錄感受：</strong>將重要洞察記錄在日記中</p>
+<p><strong>分享交流：</strong>與信任的朋友分享領悟</p>
+<p><strong>行動實踐：</strong>將指引轉化為具體的生活行動</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 抽取的卡片展示區域 -->
+<div class="max-w-6xl mx-auto mb-8 hidden" id="drawnCardsSection">
+<div class="cards-section p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">✨ 你的卡片</h2>
+<div class="space-x-2">
+<button class="btn-milktea" onclick="flipAllCards()">🔮 翻轉卡片</button>
+<button class="btn-milktea" onclick="resetDraw()">🔄 重新開始</button>
+</div>
+</div>
+<!-- 抽取的卡片容器 -->
+<div class="grid gap-6" id="drawnCardsContainer">
+<!-- 抽取的卡片將顯示在這裡 -->
+</div>
+<br/><br/><br/>
+<!-- 卡片解讀指引 -->
+<div class="control-panel rounded-xl p-6 mb-8" id="readingGuide">
+<h3 class="font-medium mb-3 text-lg" style="color: #2c2838;">🔮 解讀指引</h3>
+<div class="text-sm" id="guideText" style="color: #2c2838;"></div>
+<!-- 快速解讀指引（總是顯示） -->
+<div class="quick-guide" id="quickReadingGuide">
+<!-- 快速指引內容將在這裡動態生成 -->
+</div>
+<!-- 展開詳細指引 -->
+<div class="text-center mt-4">
+<button class="expand-button" id="detailedGuideBtn" onclick="toggleDetailedGuide()">
+                            ✨ 展開深度解讀指引
+                        </button>
+</div>
+<!-- 詳細指引內容 -->
+<div class="usage-tips" id="detailedGuide">
+<!-- 詳細指引內容將在這裡動態生成 -->
+</div>
+</div>
+</div>
+</div>
+<!-- 單張卡片模態框 -->
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50" id="cardModal" onclick="closeModal()">
+<div class="modal-content rounded-2xl p-8 max-w-md mx-4 relative" onclick="event.stopPropagation()">
+<button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl" onclick="closeModal()">×</button>
+<div id="modalContent"></div>
+</div>
+</div>
+</div>
+<!-- 聯絡表單區域 -->
+<section class="max-w-4xl mx-auto mb-8">
+<div class="control-panel p-6">
+<div class="max-w-2xl mx-auto text-center">
+<h2 class="text-2xl font-bold mb-4" style="color: #2c2838;">📝 我思字卡使用回饋</h2>
+<p class="text-base mb-6" style="color: #6b5b73;">
+                    感謝您使用我思舒心字卡！您的回饋將幫助我們持續改進，<br/>
+                    請點擊下方按鈕填寫使用體驗問卷。
+                </p>
+<a class="btn-milktea inline-block px-8 py-3 text-lg" href="https://docs.google.com/forms/d/e/1FAIpQLSdQqTjBb0NX9CUed4WYCXXA0kIdzfmvBM5xbr0yw3irFhoAhA/viewform" target="_blank">
+                    💫 填寫回饋表單
+                </a>
+<p class="text-sm mt-4" style="color: #6b5b73;">
+                    回覆時間約 5～7 分鐘。
+                </p>
+</div>
+</div>
+</section>
+<script>
         // 卡片資料庫
         const cardDatabase = [
             // 困境覺察類（20組）
@@ -947,10 +972,9 @@
             cardDiv.innerHTML = `
                 <div class="card-inner">
                     <div class="card-front">
-                        
                         <div class="card-content">
 <br><br><br><br><br>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">舒心字卡</h3>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">療癒字卡</h3>
                             <p class="text-sm text-gray-600 mb-1" style="color:White;">點擊翻轉查看訊息</p>
                         </div>
                     </div>
@@ -975,13 +999,44 @@
         // 顯示解讀指引
         function showReadingGuide(drawMode) {
             const guideText = document.getElementById('guideText');
+            const quickGuide = document.getElementById('quickReadingGuide');
             let guideHTML = '';
+            let quickGuideHTML = '';
 
             switch (drawMode) {
                 case 'single':
                     guideHTML = `
                         <p class="text-sm mb-2" style="color: #2c2838;">這張卡片是宇宙此刻賜予你的神聖訊息。靜下心來，感受靈性想要傳達給你的智慧。</p>
                         <p class="text-sm" style="color: #2c2838;">💫 問問自己：如何與我當前的靈性旅程產生共鳴？</p>
+                    `;
+                    
+                    quickGuideHTML = `
+                        <h4 class="font-semibold mb-3 text-center" style="color: #2c2838;">✨ 三層快速解讀</h4>
+                        <div class="quick-guide-item">
+                            <div class="flex items-center mb-2">
+                                <span class="text-lg mr-2">👁️</span>
+                                <strong style="color: #2c2838;">看見：</strong>
+                            </div>
+                            <p class="text-sm" style="color: #2c2838;">這張卡片帶來了什麼直覺感受？哪個詞句最觸動你？</p>
+                        </div>
+                        <div class="quick-guide-item">
+                            <div class="flex items-center mb-2">
+                                <span class="text-lg mr-2">🔗</span>
+                                <strong style="color: #2c2838;">連結：</strong>
+                            </div>
+                            <p class="text-sm" style="color: #2c2838;">這個訊息與你當前的情境、情緒有什麼呼應？</p>
+                        </div>
+                        <div class="quick-guide-item">
+                            <div class="flex items-center mb-2">
+                                <span class="text-lg mr-2">🛤️</span>
+                                <strong style="color: #2c2838;">前行：</strong>
+                            </div>
+                            <p class="text-sm" style="color: #2c2838;">你可以做什麼小小的選擇，讓這個訊息開始變成生活的改變？</p>
+                        </div>
+                        <div class="quick-guide-item" style="background: rgba(201, 169, 110, 0.20); border-left: 4px solid #c9a96e;">
+                            <div class="font-medium mb-1" style="color: #2c2838;">📝 快速書寫</div>
+                            <p class="text-sm" style="color: #2c2838;">完成這個句子：「這張卡讓我想到...」</p>
+                        </div>
                     `;
                     break;
                 case 'three':
@@ -1001,6 +1056,26 @@
                             </div>
                         </div>
                         <p class="text-sm" style="color: #2c2838;">💫 觀察三張卡片之間的靈性關聯性，它們共同訴說著你靈魂故事的一個神聖章節。</p>
+                    `;
+
+                    quickGuideHTML = `
+                        <h4 class="font-semibold mb-3 text-center" style="color: #2c2838;">🔗 三重整合探索</h4>
+                        <div class="quick-guide-item">
+                            <strong style="color: #2c2838;">🎭 看見模式：</strong>
+                            <span class="text-sm" style="color: #2c2838;">三張卡片揭示了什麼重複的生命模式或主題？</span>
+                        </div>
+                        <div class="quick-guide-item">
+                            <strong style="color: #2c2838;">🌊 連結流動：</strong>
+                            <span class="text-sm" style="color: #2c2838;">從過去到現在到未來，能量是如何流動和轉化的？</span>
+                        </div>
+                        <div class="quick-guide-item">
+                            <strong style="color: #2c2838;">⚡ 行動橋樑：</strong>
+                            <span class="text-sm" style="color: #2c2838;">如何用一個行動連接這三個時空，創造療癒與轉化？</span>
+                        </div>
+                        <div class="quick-guide-item" style="background: rgba(201, 169, 110, 0.20); border-left: 4px solid #c9a96e;">
+                            <div class="font-medium mb-1" style="color: #2c2838;">📝 整合書寫</div>
+                            <p class="text-sm" style="color: #2c2838;">寫下：「我的靈魂正在從___走向___，而現在我需要___」</p>
+                        </div>
                     `;
                     break;
                 case 'five':
@@ -1029,10 +1104,31 @@
                         </div>
                         <p class="text-sm" style="color: #2c2838;">💫 這個展開方式協助你用一套靈性路徑，從事件經驗走向靈性轉化與前行。</p>
                     `;
+
+                    quickGuideHTML = `
+                        <h4 class="font-semibold mb-3 text-center" style="color: #2c2838;">⚡ 五步轉化流程</h4>
+                        <div class="quick-guide-item">
+                            <strong style="color: #2c2838;">🔍 模式識別：</strong>
+                            <span class="text-sm" style="color: #2c2838;">A→B→C 揭示了什麼慣性反應模式？這個模式服務我嗎？</span>
+                        </div>
+                        <div class="quick-guide-item">
+                            <strong style="color: #2c2838;">💡 視野轉換：</strong>
+                            <span class="text-sm" style="color: #2c2838;">D卡邀請什麼新的可能性？如果採用這個視野，會如何改變我的感受？</span>
+                        </div>
+                        <div class="quick-guide-item">
+                            <strong style="color: #2c2838;">🚀 實踐整合：</strong>
+                            <span class="text-sm" style="color: #2c2838;">E卡的行動如何幫助我從舊模式轉向新可能？我準備好踏出這一步嗎？</span>
+                        </div>
+                        <div class="quick-guide-item" style="background: rgba(201, 169, 110, 0.20); border-left: 4px solid #c9a96e;">
+                            <div class="font-medium mb-1" style="color: #2c2838;">🎯 轉化宣言</div>
+                            <p class="text-sm" style="color: #2c2838;">完成：「我選擇從___（舊模式）轉向___（新視野），透過___（行動）」</p>
+                        </div>
+                    `;
                     break;
             }
 
             guideText.innerHTML = guideHTML;
+            quickGuide.innerHTML = quickGuideHTML;
         }
 
         // 翻轉單張卡片
@@ -1109,6 +1205,113 @@
             modal.classList.remove('flex');
         }
 
+        // 切換使用方式提示
+        function toggleUsageTips() {
+            const tips = document.getElementById('usageTips');
+            const btn = document.getElementById('usageTipsBtn');
+            
+            if (tips.style.display === 'none') {
+                tips.style.display = 'block';
+                btn.textContent = '📚 收起使用方式';
+            } else {
+                tips.style.display = 'none';
+                btn.textContent = '📚 查看使用方式與日常實踐';
+            }
+        }
+
+        // 切換詳細指引
+        function toggleDetailedGuide() {
+            const guide = document.getElementById('detailedGuide');
+            const btn = document.getElementById('detailedGuideBtn');
+            
+            if (guide.style.display === 'none') {
+                guide.style.display = 'block';
+                btn.textContent = '✨ 收起深度指引';
+                populateDetailedGuide();
+            } else {
+                guide.style.display = 'none';
+                btn.textContent = '✨ 展開深度解讀指引';
+            }
+        }
+
+        // 填充詳細指引內容
+        function populateDetailedGuide() {
+            const guide = document.getElementById('detailedGuide');
+            const drawMode = document.getElementById('drawModeSelect').value;
+            let content = '';
+
+            switch (drawMode) {
+                case 'single':
+                    content = `
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="tip-category">
+                                <h5 class="font-semibold mb-2" style="color: #2c2838;">🧘 冥想整合</h5>
+                                <div class="text-sm space-y-1" style="color: #2c2838;">
+                                    <p>• 閉眼深呼吸，重複卡片關鍵字</p>
+                                    <p>• 感受身體的共鳴部位</p>
+                                    <p>• 問內在：「這光想照亮什麼？」</p>
+                                    <p>• 靜靜等待答案浮現</p>
+                                </div>
+                            </div>
+                            <div class="tip-category">
+                                <h5 class="font-semibold mb-2" style="color: #2c2838;">🌟 行動整合</h5>
+                                <div class="text-sm space-y-1" style="color: #2c2838;">
+                                    <p>• 今天：選擇一個回應行動</p>
+                                    <p>• 本週：觀察生活中的對應</p>
+                                    <p>• 長期：設定靈性實踐意圖</p>
+                                    <p>• 分享：與信任的人分享領悟</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'three':
+                    content = `
+                        <div class="space-y-3">
+                            <div class="tip-category">
+                                <h5 class="font-semibold mb-2" style="color: #2c2838;">🕯️ 過去療癒儀式</h5>
+                                <p class="text-sm" style="color: #2c2838;">為過去的經驗點一根蠟燭，說：「謝謝你教會我___，我釋放___」</p>
+                            </div>
+                            <div class="tip-category">
+                                <h5 class="font-semibold mb-2" style="color: #2c2838;">💎 現在覺知練習</h5>
+                                <p class="text-sm" style="color: #2c2838;">每天與核心議題對話5分鐘：「你今天想告訴我什麼？」</p>
+                            </div>
+                            <div class="tip-category">
+                                <h5 class="font-semibold mb-2" style="color: #2c2838;">🌟 未來意圖設定</h5>
+                                <p class="text-sm" style="color: #2c2838;">設定一個21天意圖：「我選擇朝向___，每天我將___」</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'five':
+                    content = `
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="tip-category">
+                                <h5 class="font-semibold mb-2" style="color: #2c2838;">🔬 模式深探練習</h5>
+                                <div class="text-sm space-y-1" style="color: #2c2838;">
+                                    <p>• 這個模式最早何時開始？</p>
+                                    <p>• 它曾經保護我什麼？</p>
+                                    <p>• 現在它如何限制我？</p>
+                                    <p>• 我準備好放下它嗎？</p>
+                                </div>
+                            </div>
+                            <div class="tip-category">
+                                <h5 class="font-semibold mb-2" style="color: #2c2838;">🌱 新模式建立</h5>
+                                <div class="text-sm space-y-1" style="color: #2c2838;">
+                                    <p>• 每天練習新視野5分鐘</p>
+                                    <p>• 設定行動提醒</p>
+                                    <p>• 記錄轉化過程</p>
+                                    <p>• 慶祝每個小進步</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            guide.innerHTML = content;
+        }
+
         // 更換主題
         function changeTheme(theme) {
             currentTheme = theme;
@@ -1122,30 +1325,26 @@
             }
         });
     </script>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="text-center mb-6">
-                <p class="footer-text">
+<!-- Footer -->
+<footer class="footer">
+<div class="footer-content">
+<div class="text-center mb-6">
+<p class="footer-text">
                     專業靈性諮詢與靈性指引服務 | 
                     致力於為您提供最準確的靈性指引 | 
                     讓每個靈魂都能找到內在的智慧之光
                 </p>
-            </div>
-            <div class="footer-divider"></div>
-            <div class="footer-bottom">
-                <p>
-                    © 2025 袖艷靈性指引工作室 (Xiuyan Mercy Studio). <br>
-                    <span class="text-sm opacity-70">
-                        Professional Spiritual Consultation & Divination Services | 專業靈性諮詢與靈性指引服務
+</div>
+<div class="footer-divider"></div>
+<div class="footer-bottom">
+<p>
+                    © 2025 袖艷靈性指引工作室 (Xiuyan Mercy Studio). <br/>
+<span class="text-sm opacity-70">
+                        Professional Spiritual Consultation &amp; Divination Services | 專業靈性諮詢與靈性指引服務
                     </span>
-                </p>
-            </div>
-        </div>
-    </footer>
-
-
+</p>
+</div>
+</div>
+</footer>
 </body>
-
 </html>
